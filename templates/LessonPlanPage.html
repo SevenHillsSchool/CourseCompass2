@@ -5,9 +5,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unit Overview</title>
-    <link rel="stylesheet" href="styling/EditCourse.css">
     <script src="https://cdn.jsdelivr.net/npm/jodit@3.4.39/build/jodit.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jodit@3.4.39/build/jodit.min.css">
+
+    <!-- Embedded CSS -->
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .lesson-plan-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .toggle-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .toggle-button:hover {
+            background-color: #0056b3;
+        }
+
+        .field-container, .two-fields {
+            margin-bottom: 20px;
+        }
+
+        .field-container label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .field-container p,
+        .field-container input,
+        .field-container textarea {
+            font-size: 16px;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .field-container input,
+        .field-container textarea {
+            display: block;
+            margin-top: 5px;
+        }
+
+        .two-fields {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .field-container1,
+        .field-container2 {
+            width: 48%;
+        }
+
+        .field-container1 label,
+        .field-container2 label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .field-container1 p,
+        .field-container2 p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Styling for the toggle switch */
+        .toggle-button {
+            font-size: 18px;
+        }
+
+        /* Jodit Editor Customization */
+        .jodit .jodit-wysiwyg {
+            min-height: 100px;
+        }
+
+        /* Additional customization (e.g., when fields are in edit mode) */
+        input:focus, textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+    </style>
 </head>
 
 <body>
