@@ -77,7 +77,10 @@
         nameList.forEach((name, index) => {
           resultText += `<br>
             <li>
-              <button class="link-button" onclick="handleNameClick(${idList[index]})">${name}</button>
+              <form action="/getCourseInfo" method="POST">
+              <input type="hidden" name="data" value=${idList[index]}>
+              <button class="link-button" onclick="window.location.href'{{url_for('getCourseInfo')}}'">${name}</button>
+              </form>
             </li>`;
         });
 
@@ -86,22 +89,9 @@
       }
 
       // Handle the name click event to open a new page
-      function handleNameClick(idValue) {
-        nextPage.input = idValue;
-        fetch('/getCourseInfo', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: 'data=' + encodeURIComponent(JSON.stringify(nextPage.input))
-        })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data);
-          window.open("/course-info", "_self");
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-      }
+      // function handleNameClick() {
+        
+      // }
 
       // Event listeners for dropdowns
       document.getElementById('dropdown1').addEventListener('change', function(e) {
