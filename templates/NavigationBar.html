@@ -2,40 +2,42 @@
 
 <html>
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styling/NavigationBar.css">
     </head>
     <body>
-        <div className="Nav">
-            <div className="rectangle"></div>
-            <header className="Nav-header">
-                <img src={logo} className="Nav-logo" alt="logo" />
+        <div class="Nav">
+            <div class="rectangle"></div>
+            <header class="Nav-header">
+                <img src="../static/logo.png" class="Nav-logo" alt="logo" />
                 <a
-                    className="Home-link"
+                    class="Home-link"
                     href="/templates/Home.html"
                     rel="noopener noreferrer"
                 >Home</a>
                 <a
-                    className="Browse-link"
-                    href="/Browse"
+                    class="Browse-link"
+                    href="/templates/Browse.html"
                     rel="noopener noreferrer"
                 >Browse</a>
                 <a
-                    className="My-courses-link"
+                    class="My-courses-link"
                     href="/my-courses"
                     rel="noopener noreferrer"
                 >My Courses</a>
                 <a
-                    className="Course-info-link"
+                    class="Course-info-link"
                     href="/course-info"
                     rel="noopener noreferrer"
                 >Course Info</a>
                 <a
-                    className="Edit-course-link"
+                    class="Edit-course-link"
                     href="/edit-course"
                     rel="noopener noreferrer"
                 >Edit Course</a>
-                <button id="btn" className="Log-out" onClick="confirmation()"">Log out</button>
-                <!-- <input type="text" className="Search-bar" placeholder="Search..."/> -->
+                <button id="btn" class="Log-out" onClick="confirmation()"">Log out</button>
+                <!-- <input type="text" class="Search-bar" placeholder="Search..."/> -->
             </header>
         </div>
     </body>
