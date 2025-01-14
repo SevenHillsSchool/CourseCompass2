@@ -17,20 +17,14 @@
       let dropdowns = { divisions: [], subjects: [], courses: [], teachers: [] };
 
       // Fetch dropdown data from server on page load
-      fetch("/populate", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-      })
-      .then((res) => res.json())
-      .then((dataFromServer) => {
-        dropdowns = {
-          divisions: dataFromServer.Divisions.split("'").join("").split(", "),
-          subjects: dataFromServer.Subjects.split("'").join("").split(", "),
-          courses: dataFromServer.Courses.split("'").join("").split(", "),
-          teachers: dataFromServer.Teachers.split("'").join("").split(", ")
-        };
-        updateDropdownOptions();
-      });
+      dataFromServer = {{ dropDownData | tojson | safe }};
+      dropdowns = {
+        Divisions: dataFromServer.Divisions.split("'").join("").split(", "),
+        Subjects: dataFromServer.Subjects.split("'").join("").split(", "),
+        Courses: dataFromServer.Courses.split("'").join("").split(", "),
+        Teachers: dataFromServer.Teachers.split("'").join("").split(", ")
+      };
+      updateDropdownOptions();
 
       // Update dropdown options based on the fetched data
       function updateDropdownOptions() {
@@ -39,10 +33,10 @@
         const dropdown3 = document.getElementById('dropdown3');
         const dropdown4 = document.getElementById('dropdown4');
 
-        dropdown1.innerHTML = `<option value="">Select School</option>` + dropdowns.divisions.map(option => `<option value="${option}">${option}</option>`).join('');
-        dropdown2.innerHTML = `<option value="">Select Department/Grade</option>` + dropdowns.subjects.map(option => `<option value="${option}">${option}</option>`).join('');
-        dropdown3.innerHTML = `<option value="">Select Course</option>` + dropdowns.courses.map(option => `<option value="${option}">${option}</option>`).join('');
-        dropdown4.innerHTML = `<option value="">Select Teacher</option>` + dropdowns.teachers.map(option => `<option value="${option}">${option}</option>`).join('');
+        dropdown1.innerHTML = `<option value="">Select School</option>` + dropdowns.Divisions.map(option => `<option value="${option}">${option}</option>`).join('');
+        dropdown2.innerHTML = `<option value="">Select Department/Grade</option>` + dropdowns.Subjects.map(option => `<option value="${option}">${option}</option>`).join('');
+        dropdown3.innerHTML = `<option value="">Select Course</option>` + dropdowns.Courses.map(option => `<option value="${option}">${option}</option>`).join('');
+        dropdown4.innerHTML = `<option value="">Select Teacher</option>` + dropdowns.Teachers.map(option => `<option value="${option}">${option}</option>`).join('');
       }
 
       // Function to handle search parameters and perform search
@@ -81,7 +75,7 @@
         let resultText = "<ul>";
 
         nameList.forEach((name, index) => {
-          resultText += `
+          resultText += `<br>
             <li>
               <button class="link-button" onclick="handleNameClick(${idList[index]})">${name}</button>
             </li>`;

@@ -15,7 +15,7 @@ def connectToData():
 
 @app.route('/')
 def pythonHome():
-    return render_template("index.html")
+    return render_template("Home.html")
 
 def populate():
     # Connecting to the server
@@ -51,6 +51,7 @@ def populate():
         else:
             currTeacher = currTeacherList[0]
         teachers.append(currTeacher)
+
     return {
         'Divisions':str(divisions).removeprefix("[").removesuffix("]"), 
         'Subjects':str(subjects).removeprefix("[").removesuffix("]"),
@@ -61,6 +62,7 @@ def populate():
 @app.route('/browse')
 def browse():
     dropDownData = populate()
+    print(dropDownData)
     return render_template("browse.html", dropDownData=dropDownData, searchData = "")
 
 # Used to search the database with inputs from the browse page
@@ -166,8 +168,7 @@ def search():
             'Names':strNames,
             'Ids':strIds
         }
-        dropDownData = populate()
-        return render_template("browse.html", dropDownData=dropDownData, searchData = searchData)
+        return searchData
 
 # Used to get all the details about a class
 @app.route("/getCourseInfo", methods=['POST'])
