@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Overview</title>
+    <link rel="stylesheet" href="styling/EditCourse.css">
+    <script src="https://cdn.jsdelivr.net/npm/jodit@3.4.39/build/jodit.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jodit@3.4.39/build/jodit.min.css">
+</head>
+<body>
+    <div class="lesson-plan-container">
+        <h1>Unit Overview</h1>
+        <button id="toggle-edit" class="toggle-button" aria-label="Switch to edit mode">Edit Mode</button>
+        <!-- Unit Title -->
+        <div class="field-container">
+            <label for="title">Unit:</label>
+            <p id="title-text">Title</p>
+            <input type="text" id="title-input" value="Title" style="display:none;">
+        </div>
+        <!-- Duration -->
+        <div class="field-container">
+            <label for="duration">Duration:</label>
+            <p id="duration-text">2021-04-05 to 2021-04-09</p>
+            <input type="text" id="duration-input" value="2021-04-05 to 2021-04-09" style="display:none;">
+        </div>
+        <!-- Standards -->
+        <div class="field-container">
+            <label for="standards">Standards:</label>
+            <p id="standards-text">Standard 1, Standard 2, Standard 3</p>
+            <textarea id="standards-input" style="display:none;">Standard 1
+Standard 2
+Standard 3</textarea>
+        </div>
+        <!-- Essential Question and Lesson Description -->
+        <div class="two-fields">
+            <!-- Essential Question -->
+            <div class="field-container1">
+                <label for="essential-question">Inclusive Essential Question:</label>
+                <p id="essential-question-text">Essential question</p>
+                <textarea id="essential-question-input" style="display:none;">Essential question</textarea>
+            </div>
+            <!-- Lesson Description -->
+            <div class="field-container2">
+                <label for="lesson-description">Lesson Description:</label>
+                <p id="lesson-description-text">Unit description</p>
+                <textarea id="lesson-description-input" style="display:none;">Unit description</textarea>
+            </div>
+        </div>
+        <!-- Integrated Learning Objective -->
+        <div class="field-container">
+            <label for="learning-objective">Integrated Learning Objective:</label>
+            <p id="learning-objective-text">Objectives</p>
+            <input type="text" id="learning-objective-input" value="Objectives" style="display:none;">
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleButton = document.getElementById("toggle-edit");
+            const isEditing = {
+                value: false
+            };
+            toggleButton.addEventListener("click", function () {
+                isEditing.value = !isEditing.value;
+                updateView();
+            });
+            function updateView() {
+                const fields = [
+                    { textId: "title-text", inputId: "title-input" },
+                    { textId: "duration-text", inputId: "duration-input" },
+                    { textId: "standards-text", inputId: "standards-input" },
+                    { textId: "essential-question-text", inputId: "essential-question-input" },
+                    { textId: "lesson-description-text", inputId: "lesson-description-input" },
+                    { textId: "learning-objective-text", inputId: "learning-objective-input" }
+                ];
+                fields.forEach(({ textId, inputId }) => {
+                    const textElement = document.getElementById(textId);
+                    const inputElement = document.getElementById(inputId);
+                    if (isEditing.value) {
+                        textElement.style.display = "none";
+                        inputElement.style.display = "block";
+                    } else {
+                        textElement.style.display = "block";
+                        inputElement.style.display = "none";
+                    }
+                });
+                toggleButton.textContent = isEditing.value ? "View Mode" : "Edit Mode";
+                toggleButton.setAttribute("aria-label", isEditing.value ? "Switch to view mode" : "Switch to edit mode");
+            }
+            updateView();
+        });
+        // Initialize Jodit Editors for Essential Question and Lesson Description
+        const essentialQuestionEditor = new Jodit("#essential-question-input", {
+            readonly: false,
+            toolbarButtonSize: "xsmall",
+            toolbarSticky: false
+        });
+        const lessonDescriptionEditor = new Jodit("#lesson-description-input", {
+            readonly: false,
+            toolbarButtonSize: "xsmall",
+            toolbarSticky: false
+        });
+    </script>
+</body>
+</html>
