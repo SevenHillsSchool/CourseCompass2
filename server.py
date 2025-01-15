@@ -21,6 +21,10 @@ def pythonHome():
 def navBar():
     return render_template("NavigationBar.html")
 
+@app.route('/courseInfo')
+def courseInfo():
+    return render_template("CourseInformationPage.html")
+
 def populate():
     # Connecting to the server
     dataBase = connectToData()
@@ -218,6 +222,7 @@ def getInfo():
     unitTitle = cursor.fetchall()[0][0]
     cursor.execute("SELECT * FROM unitText WHERE unitID=%i" % unitId)
     rawUnitData = cursor.fetchall()  
+    print(rawUnitData)
     # RawUnitData is all the data from unitText which is everything but title
     # This will be in a 2d array (theCategoryId, theText)
     # Somehow we have to put this in my allData dict so that the category type in english matches to the text from the 2d array
