@@ -196,7 +196,7 @@ def getCourseInfo():
 
     courseInfo =  {
         "Title":courseTitle,
-        "Teacher":teacherName,
+        "Teacher":(teacherName.split(",")[1] + " " + teacherName.split(",")[0]).title(),
         "UnitIds":str(unitIds).removeprefix("[").removesuffix("]"),
         "UnitNames":str(unitNames).removeprefix("[").removesuffix("]")
     } 

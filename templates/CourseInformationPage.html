@@ -11,7 +11,11 @@
 <body>
   {% include "NavigationBar.html" %}
   <div class="course-page">
-    <h1>{{ courseInfo.Title | tojson | safe }}</h1>
+    <h1 id="title-output"></h1>
+      <script>
+        var title = {{ courseInfo.Title | tojson | safe }}.split('"').join("");
+        document.getElementById('title-output').textContent = title;
+      </script>
     <!-- Container for objective sections -->
     <div class="objective-section" id="objective-section"></div>
   </div>
