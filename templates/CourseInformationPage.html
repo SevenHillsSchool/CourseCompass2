@@ -11,7 +11,7 @@
 <body>
   {% include "NavigationBar.html" %}
   <div class="course-page">
-    <h1>Unit Objectives</h1>
+    <h1>{{ courseInfo.Title | tojson | safe }}</h1>
     <!-- Container for objective sections -->
     <div class="objective-section" id="objective-section"></div>
   </div>
@@ -20,8 +20,9 @@
     // Define your objectives data
     const objectives = [
       {
-        title: "Course Name: Unit Name",
-        description: "Unit Description with Unit objectives",
+        teacher: {{ courseInfo.Teacher | tojson | safe }},
+        ids: {{ courseInfo.UnitIds | tojson | safe }},
+        names: {{ courseInfo.UnitNames | tojson | safe }},
         details: [
           {
             id: "Topic-1",
@@ -54,6 +55,12 @@
     // Iterate through each objective using a for loop
     for (let i = 0; i < objectives.length; i++) {
       const objective = objectives[i];
+      const courseIDs = objective.ids
+      const courseNames = objective.names
+      console.log(courseIDs)
+      console.log(courseNames)  
+
+
 
       // Create a div for the objective
       const objectiveDiv = document.createElement('div');
@@ -61,13 +68,8 @@
 
       // Create and append the title element
       const titleEl = document.createElement('h2');
-      titleEl.textContent = objective.title;
+      titleEl.textContent = objective.teacher;
       objectiveDiv.appendChild(titleEl);
-
-      // Create and append the description element
-      const descriptionEl = document.createElement('p');
-      descriptionEl.textContent = objective.description;
-      objectiveDiv.appendChild(descriptionEl);
 
       // Iterate through the details of the current objective using a for loop
       for (let j = 0; j < objective.details.length; j++) {

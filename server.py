@@ -200,7 +200,7 @@ def getCourseInfo():
         "UnitIds":str(unitIds).removeprefix("[").removesuffix("]"),
         "UnitNames":str(unitNames).removeprefix("[").removesuffix("]")
     } 
-    return render_template("courseInfo.html", courseInfo=courseInfo)
+    return render_template("CourseInformationPage.html", courseInfo=courseInfo)
 
 # Used to get all the details about a class
 @app.route("/getUnitInfo", methods=['POST'])
