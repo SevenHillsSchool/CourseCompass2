@@ -218,6 +218,11 @@ def getInfo():
     unitTitle = cursor.fetchall()[0][0]
     cursor.execute("SELECT * FROM unitText WHERE unitID=%i" % unitId)
     rawUnitData = cursor.fetchall()  
+    # RawUnitData is all the data from unitText which is everything but title
+    # This will be in a 2d array (theCategoryId, theText)
+    # Somehow we have to put this in my allData dict so that the category type in english matches to the text from the 2d array
+    # The array is not ordered by categoryId
+
     allData = {
         "Title":unitTitle, 
         # "Standards": Array to Dict?
