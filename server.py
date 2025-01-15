@@ -17,6 +17,10 @@ def connectToData():
 def pythonHome():
     return render_template("Home.html")
 
+@app.route('/navBar')
+def navBar():
+    return render_template("NavigationBar.html")
+
 def populate():
     # Connecting to the server
     dataBase = connectToData()
@@ -199,18 +203,102 @@ def getCourseInfo():
 @app.route("/getUnitInfo", methods=['POST'])
 def getInfo():
     unitId = int(request.form['data'])
-    dataBase = connectToData()
-    cursor = dataBase.cursor()
-    cursor.execute("")
     '''
     Title
-    Duration
+    Duration - Doesn't exist yet?
     Standards
     Objectives
     Essential Questions
     Unit Description
     '''
+    # Getting all of the data about the unit
+    dataBase = connectToData()
+    cursor = dataBase.cursor()
+    cursor.execute("SELECT unitName FROM Unit WHERE unitID=%i" % unitId)
+    unitTitle = cursor.fetchall()[0][0]
+    cursor.execute("SELECT * FROM unitText WHERE unitID=%i" % unitId)
+    rawUnitData = cursor.fetchall()  
+    allData = {
+        "Title":unitTitle, 
+        # "Standards": Array to Dict?
+    }
+    return render_template("LessonPlanPage.html", allData=allData)
+
+# Used for the edit course page to edit the courses
+@app.route("/editCourse") #, methods=['POST'])
+def editCourse():
+    return "Nothing here yet"
+
+# Used for adding a course
+@app.route("/addCourse")
+def addCourse():
+    # textFields = request.form['data'].split(",")
+    # name = textFields[0]
+    # year = textFields[1]
+    # grades = textFields[2]
+    # subject = textFields[3]
+    # division = textFields[4]
+    # teacher = textFields[5]
+    # units = textFields[6].split(",")
+    name = "Computer Science 3"
+    year = "2024"
+    grades = "grades 10-12"
+    subject = "English"
+    division = "Upper"
+    teacher = "Marcus Twyford"
+    units = ["1:Text", "2:Text", "3:Text"]
+
+    # Connecting to the server
+    dataBase = connectToData()
+
+    # preparing a cursor object
+    cursor = dataBase.cursor()
+    # Add a new subject if the subject does not exist
+    cursor.execute("SELECT subjectID FROM subject WHERE subjectName='%s'" % subject)
+    if len(cursor.fetchall()) == 0:
+        cursor.execute("INSERT INTO subject (subjectName) VALUES ('%s')" % subject)
     
+    # Add a new division if that division does not exist
+    cursor.execute("SELECT divisionID FROM division WHERE divisionName='%s'" % division)
+    if len(cursor.fetchall()) == 0:
+        cursor.execute("INSERT INTO subject VALUES ('%s')" % division)
+
+    cursor.execute("SELECT subjectID FROM subject WHERE subjectName='%s'" % subject)
+    subId = int(cursor.fetchone()[0])
+    cursor.fetchall()
+    cursor.execute("SELECT divisionID FROM division WHERE divisionName='%s'" % division)
+    divId = int(cursor.fetchone()[0])
+    cursor.fetchall()
+
+    # Add to the courseInfo table
+    statement = "INSERT INTO CourseInfo (courseName, subjectID, year, grade, divisionID) VALUES ('%s', %i, %i, '%s', %i)" % (name, subId, int(year), grades, divId)
+    cursor.execute(statement)
+
+    cursor.execute("SELECT @@IDENTITY")
+    courseId = int(cursor.fetchall()[0][0])
+
+    # Add to the teacher table
+    cursor.execute("SELECT userID FROM teacherName WHERE teacherName='%s'" % teacher)
+    if len(cursor.fetchall()) == 0:
+        statement = "INSERT INTO teacherName VALUES ('%s')" % (teacher)
+        cursor.execute(statement)
+        cursor.execute("SELECT SCOPE_IDENTITY()")
+        teacherId = cursor.fetchall()[0]
+    else:
+        cursor.execute("SELECT userID FROM teacherName WHERE teacherName='%s'" % teacher)
+        teacherId = int(cursor.fetchall()[0][0])
+    # Add to the courseTeacher table
+    statement = "INSERT INTO courseTeacher VALUES (%i, %i)" % (courseId, teacherId)
+    cursor.execute(statement)
+
+    # Adding the units to the unit table
+    for unit in units:
+        unitName = unit.split(":")[0]
+        unitText = unit.split(":")[1]
+        cursor.execute("INSERT INTO Unit (unitName, courseID) VALUES (%s, %i)" % (unitName, courseId))
+        cursor.execute("")
+
+    #dataBase.commit()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
