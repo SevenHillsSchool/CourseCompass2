@@ -70,7 +70,6 @@ def populate():
 @app.route('/browse')
 def browse():
     dropDownData = populate()
-    print(dropDownData)
     return render_template("browse.html", dropDownData=dropDownData, searchData = "")
 
 # Used to search the database with inputs from the browse page
@@ -190,7 +189,7 @@ def getCourseInfo():
     userId = cursor.fetchall()[0][0]
     cursor.execute("SELECT teacherName FROM teacherName WHERE userID='%i'" % int(userId))
     teacherName = cursor.fetchall()[0][0]
-    cursor.exeucte("SELECT unitID, unitName FROM Unit WHERE courseID='%i'" % courseId)
+    cursor.execute("SELECT unitID, unitName FROM Unit WHERE courseID='%i'" % courseId)
     unitInfo = cursor.fetchall()
     unitIds = [unit[0] for unit in unitInfo]
     unitNames = [unit[1] for unit in unitInfo]
