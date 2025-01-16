@@ -54,3 +54,15 @@
   .detail-card p {
     margin: 5px 0 0;
   }
+
+  .dropDown {
+    display: none;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #F1F1F1;
+    border-left: 4px solid #007BFF;
+    border-radius: 4px;
+  }
+  .dropDown.show {
+    display: block;
+  }

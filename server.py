@@ -15,7 +15,7 @@ def connectToData():
 
 @app.route('/')
 def pythonHome():
-    return render_template("LessonPlanPage.html")
+    return render_template("Home.html")
 
 @app.route('/navBar')
 def navBar():

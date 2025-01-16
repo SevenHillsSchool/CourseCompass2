@@ -49,23 +49,30 @@
 
       // Iterate through the details of the current objective using a for loop
       for (let j = 0; j < objective.names.length; j++) {
-        const courseNames = objective.names
-        const courseIDs = objective.ids
+        const unitNames = objective.names
+        const unitIDs = objective.ids
 
         // Create a detail card container
         const detailDiv = document.createElement('div');
         detailDiv.className = 'detail-card';
-        detailDiv.id = parseInt(courseIDs[j]);
+        detailDiv.id = unitIDs[j];
+        detailDiv.addEventListener("click", function() {
+        document.getElementById("Dropdown"+self.id).classList.toggle("show");
+        })
+        
 
         // Create and append detail id element
         const detailTextEl = document.createElement('h3');
-        detailTextEl.textContent = courseNames[j].split("'").join("");
+        detailTextEl.textContent = unitNames[j].split("'").join("");
         detailDiv.appendChild(detailTextEl);
 
-        // // Create and append detail text element
-        // const detailTextEl = document.createElement('p');
-        // detailTextEl.textContent = detail.text;
-        // detailDiv.appendChild(detailTextEl);
+        const dropDownDiv = document.createElement('div');
+        dropDownDiv.textContent = "Test";
+        dropDownDiv.id = "Dropdown"+unitIDs[j];
+        dropDownDiv.class = "dropDown";
+        detailDiv.appendChild(dropDownDiv);
+
+
 
         // Append the detail card to the objective div
         objectiveDiv.appendChild(detailDiv);
