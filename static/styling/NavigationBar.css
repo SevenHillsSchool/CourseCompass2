@@ -75,22 +75,6 @@
   left: 466px;
 }
 
-.Course-info-link {
-  text-decoration: none;
-  color: white;
-  position: fixed;
-  top: 30px;
-  left: 680px;
-}
-
-.Edit-course-link {
-  text-decoration: none;
-  color: white;
-  position: fixed;
-  top: 30px;
-  left: 890px;
-}
-
 button.Log-out {
   border: solid;
   padding: 16px 32px;
