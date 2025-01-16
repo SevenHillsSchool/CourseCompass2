@@ -3,10 +3,7 @@
   position: fixed;
   top: 0px;
   left: 0px;
-  width: 100%;
-  z-index: 2; /* Make sure the navbar is above other content */
 }
-
 .Nav-logo {
   position: fixed;
   top: 10px;
@@ -22,12 +19,13 @@
 }
 
 .Nav-header {
+  /* min-height: 100vh; */
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin); /* This makes it scale responsively */
+  font-size: calc(10px + 2vmin);
   z-index: 1;
 }
 
@@ -53,52 +51,61 @@
   }
 }
 
-/* Navigation Link Styles */
-.Nav-link {
+.Home-link {
   text-decoration: none;
   color: white;
-  font-size: calc(14px + 1vw); /* Font size scales based on the viewport width */
   position: fixed;
   top: 30px;
-  transition: 0.3s;
-}
-
-.Nav-link:hover {
-  color: #61dafb;
-}
-
-.Nav-link:focus {
-  outline: none;
-}
-
-.Home-link {
   left: 150px;
 }
 
 .Browse-link {
+  text-decoration: none;
+  color: white;
+  position: fixed;
+  top: 30px;
   left: 300px;
 }
 
 .My-courses-link {
+  text-decoration: none;
+  color: white;
+  position: fixed;
+  top: 30px;
   left: 466px;
 }
 
+.Data-test-link {
+  text-decoration: none;
+  color: white;
+  position: fixed;
+  top: 30px;
+  left: 688px;
+}
+
 .Course-info-link {
-  left: 680px;
+  text-decoration: none;
+  color: white;
+  position: fixed;
+  top: 30px;
+  left: 910px;
 }
 
 .Edit-course-link {
-  left: 890px;
+  text-decoration: none;
+  color: white;
+  position: fixed;
+  top: 30px;
+  left: 1130px;
 }
 
-/* Log-out Button */
 button.Log-out {
   border: solid;
   padding: 16px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: calc(14px + 1vw); /* Font size scales based on the viewport width */
+  font-size: 16px;
   margin: 4px 2px;
   transition-duration: 0.4s;
   cursor: pointer;
@@ -127,44 +134,12 @@ button.Log-out {
   border-color: red;
 }
 
-/* Media Query to Handle Small Adjustments */
-@media (max-width: 1024px) {
-  .Nav-link {
-    font-size: calc(12px + 1vw); /* Adjust font size for tablets */
-    left: 20px; /* Ensure the links don't stretch too far on small screens */
-  }
-
-  .Nav-logo {
-    top: 10px;
-    left: 10px;
-    height: 70px; /* Reduce logo size slightly */
-  }
-
-  .rectangle {
-    height: 90px; /* Adjust rectangle height for better balance */
-  }
-
-  .Log-out {
-    top: 20px;
-    right: 30px; /* Slightly adjust the log-out button position */
-  }
-}
-
-@media (max-width: 768px) {
-  .Nav-link {
-    font-size: calc(12px + 1vw); /* Fine-tune font size scaling */
-  }
-
-  .Nav-logo {
-    height: 60px; /* Further reduce the logo size */
-  }
-
-  .rectangle {
-    height: 80px; /* Further adjust rectangle height */
-  }
-
-  .Log-out {
-    font-size: calc(12px + 1vw);
-    right: 20px; /* Adjust log-out button position */
-  }
-}
+/* Style the search box inside the navigation bar
+.Search-bar {
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  position: fixed;
+  top: 40px;
+  right: 10px;
+} */
