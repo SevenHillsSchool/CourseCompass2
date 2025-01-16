@@ -228,14 +228,13 @@ def getUnitInfo(unitId):
     dataBase = connectToData()
     cursor = dataBase.cursor()
     allData = {}
-    cursor.execute("SELECT unitName FROM Unit WHERE unitID=%i" % unitId)
-    allData["Title"] = cursor.fetchall()[0][0]
     for i in range(1, 11):
         cursor.execute("SELECT text FROM unitText WHERE unitID=%i AND categoryTypeID=%i" % (unitId, i))
         currData = cursor.fetchall()
         if not len(currData) == 0:
             allData[categoryKey[i]] = currData[0][0]
         print(currData)
+    
     return allData
 
 # Used for the edit course page to edit the courses

@@ -68,11 +68,18 @@
         detailDiv.appendChild(detailTextEl);
 
         const dropDownDiv = document.createElement('div');
-        var theKey = "Id" + j.toString();
+        dropDownDiv.textContent = "";
+
+        var theKey = "Id" + (j+1).toString();
         var currUnitData = unitData[theKey];
+        console.log(typeof currUnitData)
+        if (currUnitData != null) {
+          var keys = Object.keys(currUnitData);
+          keys.forEach(key => {
+            dropDownDiv.innerHTML += "<h3> " + key + "</h3>" + currUnitData[key];
+          })
+        }
         //var theTitle = currUnitData.Title
-        console.log(currUnitData);
-        dropDownDiv.textContent = "Test";
         dropDownDiv.id = "Dropdown"+unitIDs[j];
         dropDownDiv.className = "dropDown";
         detailDiv.appendChild(dropDownDiv);
