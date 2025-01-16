@@ -71,19 +71,23 @@
         let nameList = data.names.split(",");
         let idList = data.ids.split(",");
         let resultText = "<ul>";
+        if (idList != "") {
+          nameList.forEach((name, index) => {
+            resultText += `<br>
+              <li>
+                <form action="/getCourseInfo" method="POST">
+                <input type="hidden" name="data" value=${idList[index]}>
+                <button class="link-button" onclick="window.location.href'{{url_for('getCourseInfo')}}'">${name}</button>
+                </form>
+              </li>`;
+          });
 
-        nameList.forEach((name, index) => {
-          resultText += `<br>
-            <li>
-              <form action="/getCourseInfo" method="POST">
-              <input type="hidden" name="data" value=${idList[index]}>
-              <button class="link-button" onclick="window.location.href'{{url_for('getCourseInfo')}}'">${name}</button>
-              </form>
-            </li>`;
-        });
-
-        resultText += "</ul>";
-        resultsContainer.innerHTML = resultText;
+          resultText += "</ul>";
+          resultsContainer.innerHTML = resultText;
+        }
+        else {
+          resultsContainer.innerHTML = "<h3>No Results</h3>";
+        }
       }
 
       // Handle the name click event to open a new page

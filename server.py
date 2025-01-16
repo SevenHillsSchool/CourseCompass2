@@ -49,7 +49,7 @@ def populate():
     for x in cursor.fetchall():
         currTeacherList = x[0].replace("'", "").split(", ")
         if len(currTeacherList) >= 2:
-            currTeacher = currTeacherList[1] + " " + currTeacherList[0]
+            currTeacher = (currTeacherList[1] + " " + currTeacherList[0]).title()
         else:
             currTeacher = currTeacherList[0]
         teachers.append(currTeacher)
@@ -182,7 +182,7 @@ def getCourseInfo():
     unitInfo = cursor.fetchall()
     unitIds = [unit[0] for unit in unitInfo]
     unitNames = [unit[1] for unit in unitInfo]
-    if len(teacherName) == 2:
+    if len(teacherName) >= 2:
         teacherName = (teacherName.split(",")[1] + " " + teacherName.split(",")[0]).title()
 
     courseInfo =  {
