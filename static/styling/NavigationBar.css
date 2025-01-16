@@ -75,20 +75,12 @@
   left: 466px;
 }
 
-.Data-test-link {
-  text-decoration: none;
-  color: white;
-  position: fixed;
-  top: 30px;
-  left: 688px;
-}
-
 .Course-info-link {
   text-decoration: none;
   color: white;
   position: fixed;
   top: 30px;
-  left: 910px;
+  left: 680px;
 }
 
 .Edit-course-link {
@@ -96,7 +88,7 @@
   color: white;
   position: fixed;
   top: 30px;
-  left: 1130px;
+  left: 890px;
 }
 
 button.Log-out {
