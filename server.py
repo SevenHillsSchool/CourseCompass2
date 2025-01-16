@@ -15,7 +15,7 @@ def connectToData():
 
 @app.route('/')
 def pythonHome():
-    return render_template("Home.html")
+    return render_template("LessonPlanPage.html")
 
 @app.route('/navBar')
 def navBar():
@@ -206,14 +206,6 @@ def getCourseInfo():
 @app.route("/getUnitInfo", methods=['POST'])
 def getInfo():
     unitId = int(request.form['data'])
-    '''
-    Title
-    Duration - Doesn't exist yet?
-    Learning Goals
-    Objectives
-    Essential Questions
-    Unit Description
-    '''
     # Defining a dictionary with the type ids to the category
     categoryKey = {
         1:"Goals", 
