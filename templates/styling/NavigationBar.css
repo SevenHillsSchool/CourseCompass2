@@ -53,7 +53,6 @@
   }
 }
 
-/* Common Link Styles */
 .Nav-link {
   text-decoration: none;
   color: white;
@@ -127,11 +126,9 @@ button.Log-out {
   border-color: red;
 }
 
-/* Media Queries for Responsiveness */
 
-/* Adjust navbar items for screens up to 768px wide */
+/* navbar for screens up to 768px wide */
 @media (max-width: 768px) {
-  /* Stack the navigation links vertically */
   .Nav-link {
     top: 10px;
     left: 20px;
@@ -141,16 +138,16 @@ button.Log-out {
     display: block;
   }
 
-  /* Adjust the navbar to be full width */
+  /* navbar to be full width */
   .Nav {
     padding: 10px;
   }
 
-  /* Reposition the logo */
+  /* logo */
   .Nav-logo {
     top: 10px;
     left: 10px;
-    height: 60px; /* Reduce logo size */
+    height: 60px; /* Reduce size */
   }
 
   .rectangle {
@@ -158,41 +155,41 @@ button.Log-out {
     height: 80px; /* Adjust rectangle height for smaller screen */
   }
 
-  /* Adjust the Log-out button */
+  /* log-out button */
   .Log-out {
     top: 20px;
     right: 10px;
     font-size: 14px;
   }
 
-  /* Adjust layout for the home link, browse link, etc. */
+  /* home link, browse link, etc. */
   .Home-link, .Browse-link, .My-courses-link, .Course-info-link, .Edit-course-link {
-    left: 20px; /* Align links to the left */
+    left: 20px; /* Align left */
     font-size: 16px;
   }
 }
 
-/* Adjust navbar items for smaller screens (mobile devices) */
+/* Adjust smaller screens */
 @media (max-width: 480px) {
-  /* Further reduce font sizes for smaller screens */
+  /* reduce font sizes */
   .Nav-link {
     font-size: 14px;
     padding: 8px 15px;
   }
 
-  /* Adjust the Log-out button for mobile */
+  /* log-out button for small screen */
   .Log-out {
     font-size: 14px;
     top: 10px;
     right: 10px;
   }
 
-  /* Reposition navbar elements for a more compact layout */
+  /* Reposition navbar */
   .Nav-logo {
-    height: 50px; /* Further reduce logo size */
+    height: 50px; /* reduce logo size */
   }
 
   .rectangle {
-    height: 60px; /* Adjust rectangle height further */
+    height: 60px; 
   }
 }
