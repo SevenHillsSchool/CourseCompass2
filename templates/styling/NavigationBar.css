@@ -3,7 +3,7 @@
   position: fixed;
   top: 0px;
   left: 0px;
-  width: 100%; /* Ensure the navbar spans the full width */
+  width: 100%;
   z-index: 2; /* Make sure the navbar is above other content */
 }
 
@@ -27,7 +27,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(10px + 2vmin); /* This makes it scale responsively */
   z-index: 1;
 }
 
@@ -53,10 +53,11 @@
   }
 }
 
+/* Navigation Link Styles */
 .Nav-link {
   text-decoration: none;
   color: white;
-  font-size: 18px;
+  font-size: calc(14px + 1vw); /* Font size scales based on the viewport width */
   position: fixed;
   top: 30px;
   transition: 0.3s;
@@ -97,7 +98,7 @@ button.Log-out {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: calc(14px + 1vw); /* Font size scales based on the viewport width */
   margin: 4px 2px;
   transition-duration: 0.4s;
   cursor: pointer;
@@ -126,70 +127,44 @@ button.Log-out {
   border-color: red;
 }
 
-
-/* navbar for screens up to 768px wide */
-@media (max-width: 768px) {
+/* Media Query to Handle Small Adjustments */
+@media (max-width: 1024px) {
   .Nav-link {
-    top: 10px;
-    left: 20px;
-    font-size: 16px;
-    margin-bottom: 10px;
-    position: relative; /* Remove fixed positioning */
-    display: block;
+    font-size: calc(12px + 1vw); /* Adjust font size for tablets */
+    left: 20px; /* Ensure the links don't stretch too far on small screens */
   }
 
-  /* navbar to be full width */
-  .Nav {
-    padding: 10px;
-  }
-
-  /* logo */
   .Nav-logo {
     top: 10px;
     left: 10px;
-    height: 60px; /* Reduce size */
+    height: 70px; /* Reduce logo size slightly */
   }
 
   .rectangle {
-    top: 0px;
-    height: 80px; /* Adjust rectangle height for smaller screen */
+    height: 90px; /* Adjust rectangle height for better balance */
   }
 
-  /* log-out button */
   .Log-out {
     top: 20px;
-    right: 10px;
-    font-size: 14px;
-  }
-
-  /* home link, browse link, etc. */
-  .Home-link, .Browse-link, .My-courses-link, .Course-info-link, .Edit-course-link {
-    left: 20px; /* Align left */
-    font-size: 16px;
+    right: 30px; /* Slightly adjust the log-out button position */
   }
 }
 
-/* Adjust smaller screens */
-@media (max-width: 480px) {
-  /* reduce font sizes */
+@media (max-width: 768px) {
   .Nav-link {
-    font-size: 14px;
-    padding: 8px 15px;
+    font-size: calc(12px + 1vw); /* Fine-tune font size scaling */
   }
 
-  /* log-out button for small screen */
-  .Log-out {
-    font-size: 14px;
-    top: 10px;
-    right: 10px;
-  }
-
-  /* Reposition navbar */
   .Nav-logo {
-    height: 50px; /* reduce logo size */
+    height: 60px; /* Further reduce the logo size */
   }
 
   .rectangle {
-    height: 60px; 
+    height: 80px; /* Further adjust rectangle height */
+  }
+
+  .Log-out {
+    font-size: calc(12px + 1vw);
+    right: 20px; /* Adjust log-out button position */
   }
 }
