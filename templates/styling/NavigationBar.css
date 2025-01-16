@@ -3,7 +3,10 @@
   position: fixed;
   top: 0px;
   left: 0px;
+  width: 100%; /* Ensure the navbar spans the full width */
+  z-index: 2; /* Make sure the navbar is above other content */
 }
+
 .Nav-logo {
   position: fixed;
   top: 10px;
@@ -19,7 +22,6 @@
 }
 
 .Nav-header {
-  /* min-height: 100vh; */
   position: relative;
   display: flex;
   flex-direction: column;
@@ -51,46 +53,45 @@
   }
 }
 
-.Home-link {
+/* Common Link Styles */
+.Nav-link {
   text-decoration: none;
   color: white;
+  font-size: 18px;
   position: fixed;
   top: 30px;
+  transition: 0.3s;
+}
+
+.Nav-link:hover {
+  color: #61dafb;
+}
+
+.Nav-link:focus {
+  outline: none;
+}
+
+.Home-link {
   left: 150px;
 }
 
 .Browse-link {
-  text-decoration: none;
-  color: white;
-  position: fixed;
-  top: 30px;
   left: 300px;
 }
 
 .My-courses-link {
-  text-decoration: none;
-  color: white;
-  position: fixed;
-  top: 30px;
   left: 466px;
 }
 
 .Course-info-link {
-  text-decoration: none;
-  color: white;
-  position: fixed;
-  top: 30px;
   left: 680px;
 }
 
 .Edit-course-link {
-  text-decoration: none;
-  color: white;
-  position: fixed;
-  top: 30px;
   left: 890px;
 }
 
+/* Log-out Button */
 button.Log-out {
   border: solid;
   padding: 16px 32px;
@@ -126,12 +127,72 @@ button.Log-out {
   border-color: red;
 }
 
-/* Style the search box inside the navigation bar
-.Search-bar {
-  border: none;
-  border-radius: 10px;
-  font-size: 18px;
-  position: fixed;
-  top: 40px;
-  right: 10px;
-} */
+/* Media Queries for Responsiveness */
+
+/* Adjust navbar items for screens up to 768px wide */
+@media (max-width: 768px) {
+  /* Stack the navigation links vertically */
+  .Nav-link {
+    top: 10px;
+    left: 20px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    position: relative; /* Remove fixed positioning */
+    display: block;
+  }
+
+  /* Adjust the navbar to be full width */
+  .Nav {
+    padding: 10px;
+  }
+
+  /* Reposition the logo */
+  .Nav-logo {
+    top: 10px;
+    left: 10px;
+    height: 60px; /* Reduce logo size */
+  }
+
+  .rectangle {
+    top: 0px;
+    height: 80px; /* Adjust rectangle height for smaller screen */
+  }
+
+  /* Adjust the Log-out button */
+  .Log-out {
+    top: 20px;
+    right: 10px;
+    font-size: 14px;
+  }
+
+  /* Adjust layout for the home link, browse link, etc. */
+  .Home-link, .Browse-link, .My-courses-link, .Course-info-link, .Edit-course-link {
+    left: 20px; /* Align links to the left */
+    font-size: 16px;
+  }
+}
+
+/* Adjust navbar items for smaller screens (mobile devices) */
+@media (max-width: 480px) {
+  /* Further reduce font sizes for smaller screens */
+  .Nav-link {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+
+  /* Adjust the Log-out button for mobile */
+  .Log-out {
+    font-size: 14px;
+    top: 10px;
+    right: 10px;
+  }
+
+  /* Reposition navbar elements for a more compact layout */
+  .Nav-logo {
+    height: 50px; /* Further reduce logo size */
+  }
+
+  .rectangle {
+    height: 60px; /* Adjust rectangle height further */
+  }
+}
