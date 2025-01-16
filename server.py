@@ -200,12 +200,14 @@ def getCourseInfo():
         "UnitIds":str(unitIds).removeprefix("[").removesuffix("]"),
         "UnitNames":str(unitNames).removeprefix("[").removesuffix("]")
     } 
-    return render_template("CourseInformationPage.html", courseInfo=courseInfo)
+    unitInfo = {}
+    for unit in unitIds:
+        unitInfo[unit] = getUnitInfo(unit)
+    return render_template("CourseInformationPage.html", courseInfo=courseInfo, unitInfo=unitInfo)
 
 # Used to get all the details about a class
-@app.route("/getUnitInfo", methods=['POST'])
-def getInfo():
-    unitId = int(request.form['data'])
+def getUnitInfo(unitId):
+    #unitId = int(request.form['data'])
     # Defining a dictionary with the type ids to the category
     categoryKey = {
         1:"Goals", 
@@ -230,8 +232,7 @@ def getInfo():
         currData = cursor.fetchall()
         if not len(currData) == 0:
             allData[categoryKey[i]] = currData[0][0]
-    
-    return render_template("LessonPlanPage.html", allData=allData)
+    return allData
 
 # Used for the edit course page to edit the courses
 @app.route("/editCourse") #, methods=['POST'])
