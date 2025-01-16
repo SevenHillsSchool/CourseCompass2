@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="static/styling/NavigationBar.css">
+    </head>
+    <body>
+        <div class="Nav">
+            <div class="rectangle"></div>
+            <header class="Nav-header">
+                <img src="../static/logo.png" class="Nav-logo" alt="logo" />
+                <a
+                    class="Home-link"
+                    href="/"
+                    rel="noopener noreferrer"
+                >Home</a>
+                <a
+                    class="Browse-link"
+                    href="/browse"
+                    rel="noopener noreferrer"
+                >Browse</a>
+                <a
+                    class="My-courses-link"
+                    class="My-courses-link"
+                    href="/my-courses"
+                    rel="noopener noreferrer"
+                >My Courses</a>
+                <button id="btn" class="Log-out" onClick="confirmation()">Log out</button>
+                <!-- <input type="text" class="Search-bar" placeholder="Search..."/> -->
+                <button id="btn" class="Log-out" onClick="confirmation()">Log out</button>
+                <!-- <input type="text" class="Search-bar" placeholder="Search..."/> -->
+            </header>
+        </div>
+    </body>
+    <script>
+        function confirmation() {
+            if (window.confirm("Are you sure you want to log out?")) {
+                window.open("/", "_self");
+            }
+            return 0;
+        }
+    </script>
+</html>
