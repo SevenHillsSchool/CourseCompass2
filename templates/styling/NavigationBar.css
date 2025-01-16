@@ -44,15 +44,6 @@
   color: #61dafb;
 }
 
-@keyframes Nav-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 /* Navigation Link Styles */
 .Nav-link {
   text-decoration: none;
@@ -127,11 +118,11 @@ button.Log-out {
   border-color: red;
 }
 
-/* Media Query to Handle Small Adjustments */
+/* Media Query for Small Adjustments */
 @media (max-width: 1024px) {
   .Nav-link {
-    font-size: calc(12px + 1vw); /* Adjust font size for tablets */
-    left: 20px; /* Ensure the links don't stretch too far on small screens */
+    font-size: calc(12px + 1vw); 
+    left: 20px; 
   }
 
   .Nav-logo {
