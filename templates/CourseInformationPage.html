@@ -57,7 +57,7 @@
         detailDiv.className = 'detail-card';
         detailDiv.id = unitIDs[j];
         detailDiv.addEventListener("click", function() {
-        document.getElementById("Dropdown"+self.id).classList.toggle("show");
+        document.getElementById("Dropdown"+this.id).classList.toggle("show");
         })
         
 
@@ -69,7 +69,7 @@
         const dropDownDiv = document.createElement('div');
         dropDownDiv.textContent = "Test";
         dropDownDiv.id = "Dropdown"+unitIDs[j];
-        dropDownDiv.class = "dropDown";
+        dropDownDiv.className = "dropDown";
         detailDiv.appendChild(dropDownDiv);
 
 
