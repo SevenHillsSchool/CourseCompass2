@@ -60,7 +60,6 @@ def populate():
         'Teachers':str(teachers).removeprefix("[").removesuffix("]")
     }
 
-    print(dataToReturn)
     return dataToReturn
 
 @app.route('/browse')
@@ -167,6 +166,7 @@ def search():
 # Used to get all the details about a class
 @app.route("/getCourseInfo", methods=['POST'])
 def getCourseInfo():
+    teacherName = "No Teacher"
     courseId = int(request.form['data'])
     dataBase = connectToData()
     cursor = dataBase.cursor()
@@ -175,7 +175,9 @@ def getCourseInfo():
     cursor.execute("SELECT userID FROM courseTeacher WHERE courseID='%i'" % courseId)
     userId = cursor.fetchall()[0][0]
     cursor.execute("SELECT teacherName FROM teacherName WHERE userID='%i'" % int(userId))
-    teacherName = cursor.fetchall()[0][0]
+    teacherNameData = cursor.fetchall()
+    if len(teacherNameData) >= 1:
+        teacherName = teacherNameData[0][0]
     cursor.execute("SELECT unitID, unitName FROM Unit WHERE courseID='%i'" % courseId)
     unitInfo = cursor.fetchall()
     unitIds = [unit[0] for unit in unitInfo]
@@ -192,7 +194,6 @@ def getCourseInfo():
     unitInfo = {}
     for unit in unitIds:
         unitInfo["Id" + str(unit)] = getUnitInfo(unit)
-    print(unitInfo)
     return render_template("CourseInformationPage.html", courseInfo=courseInfo, unitInfo=unitInfo)
 
 # Used to get all the details about a class
@@ -220,7 +221,6 @@ def getUnitInfo(unitId):
         currData = cursor.fetchall()
         if not len(currData) == 0:
             allData[categoryKey[i]] = currData[0][0]
-        print(currData)
     
     return allData
 
