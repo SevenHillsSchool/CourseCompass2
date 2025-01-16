@@ -47,6 +47,7 @@
       titleEl.textContent = objective.teacher;
       objectiveDiv.appendChild(titleEl);
 
+      var unitData = {{ unitInfo | tojson | safe }};
       // Iterate through the details of the current objective using a for loop
       for (let j = 0; j < objective.names.length; j++) {
         const unitNames = objective.names
@@ -67,6 +68,10 @@
         detailDiv.appendChild(detailTextEl);
 
         const dropDownDiv = document.createElement('div');
+        var theKey = "Id" + j.toString();
+        var currUnitData = unitData[theKey];
+        //var theTitle = currUnitData.Title
+        console.log(currUnitData);
         dropDownDiv.textContent = "Test";
         dropDownDiv.id = "Dropdown"+unitIDs[j];
         dropDownDiv.className = "dropDown";

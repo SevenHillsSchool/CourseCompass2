@@ -193,16 +193,19 @@ def getCourseInfo():
     unitInfo = cursor.fetchall()
     unitIds = [unit[0] for unit in unitInfo]
     unitNames = [unit[1] for unit in unitInfo]
+    if len(teacherName) == 2:
+        teacherName = (teacherName.split(",")[1] + " " + teacherName.split(",")[0]).title()
 
     courseInfo =  {
         "Title":courseTitle,
-        "Teacher":(teacherName.split(",")[1] + " " + teacherName.split(",")[0]).title(),
+        "Teacher":teacherName,
         "UnitIds":str(unitIds).removeprefix("[").removesuffix("]"),
         "UnitNames":str(unitNames).removeprefix("[").removesuffix("]")
     } 
     unitInfo = {}
     for unit in unitIds:
-        unitInfo[unit] = getUnitInfo(unit)
+        unitInfo["Id" + str(unit)] = getUnitInfo(unit)
+    print(unitInfo)
     return render_template("CourseInformationPage.html", courseInfo=courseInfo, unitInfo=unitInfo)
 
 # Used to get all the details about a class
@@ -232,6 +235,7 @@ def getUnitInfo(unitId):
         currData = cursor.fetchall()
         if not len(currData) == 0:
             allData[categoryKey[i]] = currData[0][0]
+        print(currData)
     return allData
 
 # Used for the edit course page to edit the courses
