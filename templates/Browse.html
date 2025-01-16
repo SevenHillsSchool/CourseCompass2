@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Browse</title>
-  <link rel="stylesheet" href="styling/Browse.css">
+  <link rel="stylesheet" href="../static/styling/Browse.css">
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       let selectedOption1 = '';
@@ -15,14 +15,13 @@
       let data = { names: "", ids: "" };
       let searchParameters = { input: "" };
       let nextPage = { input: "" };
-      let dropdowns = { divisions: [], subjects: [], courses: [], teachers: [] };
+      let dropdowns = { divisions: [], subjects: [], teachers: [] };
 
       // Fetch dropdown data from server on page load
       dataFromServer = {{ dropDownData | tojson | safe }};
       dropdowns = {
         Divisions: dataFromServer.Divisions.split("'").join("").split(", "),
         Subjects: dataFromServer.Subjects.split("'").join("").split(", "),
-        Courses: dataFromServer.Courses.split("'").join("").split(", "),
         Teachers: dataFromServer.Teachers.split("'").join("").split(", ")
       };
       updateDropdownOptions();
@@ -31,19 +30,17 @@
       function updateDropdownOptions() {
         const dropdown1 = document.getElementById('dropdown1');
         const dropdown2 = document.getElementById('dropdown2');
-        const dropdown3 = document.getElementById('dropdown3');
         const dropdown4 = document.getElementById('dropdown4');
 
         dropdown1.innerHTML = `<option value="">Select School</option>` + dropdowns.Divisions.map(option => `<option value="${option}">${option}</option>`).join('');
         dropdown2.innerHTML = `<option value="">Select Department/Grade</option>` + dropdowns.Subjects.map(option => `<option value="${option}">${option}</option>`).join('');
-        dropdown3.innerHTML = `<option value="">Select Course</option>` + dropdowns.Courses.map(option => `<option value="${option}">${option}</option>`).join('');
         dropdown4.innerHTML = `<option value="">Select Teacher</option>` + dropdowns.Teachers.map(option => `<option value="${option}">${option}</option>`).join('');
       }
 
       // Function to handle search parameters and perform search
       function sendSearchRequest() {
-        if (!(selectedOption1 === '' && selectedOption2 === '' && selectedOption3 === '' && selectedOption4 === '')) {
-          searchParameters.input = (selectedOption1 + "," + selectedOption2 + "," + selectedOption3 + "," + selectedOption4);
+        if (!(selectedOption1 === '' && selectedOption2 === '' && selectedOption4 === '')) {
+          searchParameters.input = (selectedOption1 + "," + selectedOption2 + "," + selectedOption4);
         } else {
           searchParameters.input = '';
         }
@@ -101,9 +98,6 @@
       document.getElementById('dropdown2').addEventListener('change', function(e) {
         selectedOption2 = e.target.value;
       });
-      document.getElementById('dropdown3').addEventListener('change', function(e) {
-        selectedOption3 = e.target.value;
-      });
       document.getElementById('dropdown4').addEventListener('change', function(e) {
         selectedOption4 = e.target.value;
       });
@@ -127,11 +121,6 @@
     <div>
       <select id="dropdown2">
         <option value="">Select Department/Grade</option>
-      </select>
-    </div>
-    <div>
-      <select id="dropdown3">
-        <option value="">Select Course</option>
       </select>
     </div>
     <div>

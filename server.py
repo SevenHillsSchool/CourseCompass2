@@ -43,12 +43,6 @@ def populate():
     for x in cursor.fetchall():
         subjects.append(x[0].replace("'", ""))
 
-    statement = "SELECT courseName FROM CourseInfo"
-    cursor.execute(statement)
-    courses = []
-    for x in cursor.fetchall():
-        courses.append(x[0].replace("'", ""))
-
     statement = "SELECT teacherName FROM teacherName"
     cursor.execute(statement)
     teachers = []
@@ -60,12 +54,14 @@ def populate():
             currTeacher = currTeacherList[0]
         teachers.append(currTeacher)
 
-    return {
+    dataToReturn = {
         'Divisions':str(divisions).removeprefix("[").removesuffix("]"), 
         'Subjects':str(subjects).removeprefix("[").removesuffix("]"),
-        'Courses':str(courses).removeprefix("[").removesuffix("]"),
         'Teachers':str(teachers).removeprefix("[").removesuffix("]")
     }
+
+    print(dataToReturn)
+    return dataToReturn
 
 @app.route('/browse')
 def browse():
@@ -81,8 +77,7 @@ def search():
         # School, Department, Course, teacher
         school = data[0]
         department = data[1]
-        course = data[2]
-        teacher = data[3]
+        teacher = data[2]
         dataBase = connectToData()
         results = []
         noResults = False
@@ -114,14 +109,6 @@ def search():
             if "=" in statement:
                 statement += " AND "
             statement+= "subjectID='" + str(subjectId) + "'"
-
-        # Getting the courses from the course info table based on the course name
-        if course != "":
-            if statement == original:
-                statement+=" WHERE "
-            if "=" in statement:
-                statement += " AND "
-            statement+="courseName='" + str(course) + "'"
 
         # Getting the teacher id from the teacherName table based on the teacher name
         teacherCourses = []
