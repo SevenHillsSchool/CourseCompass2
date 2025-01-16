@@ -25,30 +25,8 @@
     const objectives = [
       {
         teacher: {{ courseInfo.Teacher | tojson | safe }},
-        ids: {{ courseInfo.UnitIds | tojson | safe }},
-        names: {{ courseInfo.UnitNames | tojson | safe }},
-        details: [
-          {
-            id: "Topic-1",
-            text: "Students should be able to demonstrate basic knowledge of one aspect of unit objectives…"
-          },
-          {
-            id: "Topic-2",
-            text: "Students should be able to describe how something in Unit 1…"
-          },
-          {
-            id: "Topic-3",
-            text: "Students should be able to compare the benefits and limitations of…"
-          },
-          {
-            id: "Topic-4",
-            text: "Students should be able to examine..."
-          },
-          {
-            id: "Topic-5",
-            text: "Students should be able to describe..."
-          }
-        ]
+        ids: {{ courseInfo.UnitIds | tojson | safe }}.split(", "),
+        names: {{ courseInfo.UnitNames | tojson | safe }}.split(", ")
       }
       // Add more objective objects if needed.
     ];
@@ -59,12 +37,6 @@
     // Iterate through each objective using a for loop
     for (let i = 0; i < objectives.length; i++) {
       const objective = objectives[i];
-      const courseIDs = objective.ids
-      const courseNames = objective.names
-      console.log(courseIDs)
-      console.log(courseNames)  
-
-
 
       // Create a div for the objective
       const objectiveDiv = document.createElement('div');
@@ -76,22 +48,24 @@
       objectiveDiv.appendChild(titleEl);
 
       // Iterate through the details of the current objective using a for loop
-      for (let j = 0; j < objective.details.length; j++) {
-        const detail = objective.details[j];
+      for (let j = 0; j < objective.names.length; j++) {
+        const courseNames = objective.names
+        const courseIDs = objective.ids
 
         // Create a detail card container
         const detailDiv = document.createElement('div');
         detailDiv.className = 'detail-card';
+        detailDiv.id = parseInt(courseIDs[j]);
 
         // Create and append detail id element
-        const detailIdEl = document.createElement('h3');
-        detailIdEl.textContent = detail.id;
-        detailDiv.appendChild(detailIdEl);
-
-        // Create and append detail text element
-        const detailTextEl = document.createElement('p');
-        detailTextEl.textContent = detail.text;
+        const detailTextEl = document.createElement('h3');
+        detailTextEl.textContent = courseNames[j].split("'").join("");
         detailDiv.appendChild(detailTextEl);
+
+        // // Create and append detail text element
+        // const detailTextEl = document.createElement('p');
+        // detailTextEl.textContent = detail.text;
+        // detailDiv.appendChild(detailTextEl);
 
         // Append the detail card to the objective div
         objectiveDiv.appendChild(detailDiv);

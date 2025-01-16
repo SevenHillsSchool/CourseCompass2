@@ -209,28 +209,36 @@ def getInfo():
     '''
     Title
     Duration - Doesn't exist yet?
-    Standards
+    Learning Goals
     Objectives
     Essential Questions
     Unit Description
     '''
+    # Defining a dictionary with the type ids to the category
+    categoryKey = {
+        1:"Goals", 
+        2:"Assessment",
+        3:"Content",
+        4:"Differentiation",
+        5:"Understandings",
+        6:"Questions",
+        7:"Activities",
+        8:"Resources",
+        9:"Skills",
+        10:"TechSkills"
+    }
     # Getting all of the data about the unit
     dataBase = connectToData()
     cursor = dataBase.cursor()
+    allData = {}
     cursor.execute("SELECT unitName FROM Unit WHERE unitID=%i" % unitId)
-    unitTitle = cursor.fetchall()[0][0]
-    cursor.execute("SELECT * FROM unitText WHERE unitID=%i" % unitId)
-    rawUnitData = cursor.fetchall()  
-    print(rawUnitData)
-    # RawUnitData is all the data from unitText which is everything but title
-    # This will be in a 2d array (theCategoryId, theText)
-    # Somehow we have to put this in my allData dict so that the category type in english matches to the text from the 2d array
-    # The array is not ordered by categoryId
-
-    allData = {
-        "Title":unitTitle, 
-        # "Standards": Array to Dict?
-    }
+    allData["Title"] = cursor.fetchall()[0][0]
+    for i in range(1, 11):
+        cursor.execute("SELECT text FROM unitText WHERE unitID=%i AND categoryTypeID=%i" % (unitId, i))
+        currData = cursor.fetchall()
+        if not len(currData) == 0:
+            allData[categoryKey[i]] = currData[0][0]
+    
     return render_template("LessonPlanPage.html", allData=allData)
 
 # Used for the edit course page to edit the courses
