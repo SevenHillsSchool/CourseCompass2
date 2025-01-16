@@ -2,13 +2,14 @@
 
 <html>
     <head>
-        <link rel="stylesheet" href="styling/Home.css">
+        <link rel="stylesheet" href="static/styling/Home.css">
     </head>
     <body>
-        <div className="Home">
-        <header className="Home-header">
+        {% include "NavigationBar.html" %}
+        <div class="Home">
+        <header class="Home-header">
             <h1>Welcome to CourseCompass!</h1>
-            <button className="Google" type="button">Sign in with Google</button>
+            <button class="Google" type="button">Sign in with Google</button>
         </header>
         </div>
     </body>

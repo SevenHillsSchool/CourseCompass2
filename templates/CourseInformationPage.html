@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unit Overview</title>
+  <link rel="stylesheet" href="static/styling/CourseInformationPage.css" />
+  <script src="https://cdn.jsdelivr.net/npm/jodit@3.4.39/build/jodit.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jodit@3.4.39/build/jodit.min.css" />
+</head>
+<body>
+  {% include "NavigationBar.html" %}
+  <div class="course-page">
+    <h1 id="title-output"></h1>
+      <script>
+        var title = {{ courseInfo.Title | tojson | safe }}.split('"').join("");
+        document.getElementById('title-output').textContent = title;
+      </script>
+    <!-- Container for objective sections -->
+    <div class="objective-section" id="objective-section"></div>
+  </div>
+
+  <script>
+    // Define your objectives data
+    const objectives = [
+      {
+        teacher: {{ courseInfo.Teacher | tojson | safe }},
+        ids: {{ courseInfo.UnitIds | tojson | safe }}.split(", "),
+        names: {{ courseInfo.UnitNames | tojson | safe }}.split(", ")
+      }
+      // Add more objective objects if needed.
+    ];
+
+    // Get the container element
+    const objectiveContainer = document.getElementById('objective-section');
+
+    // Iterate through each objective using a for loop
+    for (let i = 0; i < objectives.length; i++) {
+      const objective = objectives[i];
+
+      // Create a div for the objective
+      const objectiveDiv = document.createElement('div');
+      objectiveDiv.className = 'objective';
+
+      // Create and append the title element
+      const titleEl = document.createElement('h2');
+      titleEl.textContent = objective.teacher;
+      objectiveDiv.appendChild(titleEl);
+
+      // Iterate through the details of the current objective using a for loop
+      for (let j = 0; j < objective.names.length; j++) {
+        const unitNames = objective.names
+        const unitIDs = objective.ids
+
+        // Create a detail card container
+        const detailDiv = document.createElement('div');
+        detailDiv.className = 'detail-card';
+        detailDiv.id = unitIDs[j];
+        detailDiv.addEventListener("click", function() {
+        document.getElementById("Dropdown"+this.id).classList.toggle("show");
+        })
+        
+
+        // Create and append detail id element
+        const detailTextEl = document.createElement('h3');
+        detailTextEl.textContent = unitNames[j].split("'").join("");
+        detailDiv.appendChild(detailTextEl);
+
+        const dropDownDiv = document.createElement('div');
+        dropDownDiv.textContent = "Test";
+        dropDownDiv.id = "Dropdown"+unitIDs[j];
+        dropDownDiv.className = "dropDown";
+        detailDiv.appendChild(dropDownDiv);
+
+
+
+        // Append the detail card to the objective div
+        objectiveDiv.appendChild(detailDiv);
+      }
+
+      // Append the objective div to the container in the document
+      objectiveContainer.appendChild(objectiveDiv);
+    }
+  </script>
+</body>
+</html>

@@ -2,9 +2,7 @@
 
 <html>
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styling/NavigationBar.css">
+        <link rel="stylesheet" href="static/styling/NavigationBar.css">
     </head>
     <body>
         <div class="Nav">
@@ -13,29 +11,33 @@
                 <img src="../static/logo.png" class="Nav-logo" alt="logo" />
                 <a
                     class="Home-link"
-                    href="/templates/Home.html"
+                    href="/"
                     rel="noopener noreferrer"
                 >Home</a>
                 <a
                     class="Browse-link"
-                    href="/templates/Browse.html"
+                    href="/browse"
                     rel="noopener noreferrer"
                 >Browse</a>
                 <a
+                    class="My-courses-link"
                     class="My-courses-link"
                     href="/my-courses"
                     rel="noopener noreferrer"
                 >My Courses</a>
                 <a
                     class="Course-info-link"
-                    href="/course-info"
+                    href="/courseInfo"
                     rel="noopener noreferrer"
                 >Course Info</a>
                 <a
                     class="Edit-course-link"
+                    class="Edit-course-link"
                     href="/edit-course"
                     rel="noopener noreferrer"
                 >Edit Course</a>
+                <button id="btn" class="Log-out" onClick="confirmation()"">Log out</button>
+                <!-- <input type="text" class="Search-bar" placeholder="Search..."/> -->
                 <button id="btn" class="Log-out" onClick="confirmation()"">Log out</button>
                 <!-- <input type="text" class="Search-bar" placeholder="Search..."/> -->
             </header>
