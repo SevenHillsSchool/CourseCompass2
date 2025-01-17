@@ -46,14 +46,20 @@ def populate():
     statement = "SELECT teacherName FROM teacherName"
     cursor.execute(statement)
     teachers = []
+    teachersRaw = []
     for x in cursor.fetchall():
-        currTeacherList = x[0].replace("'", "").split(", ")
+        teachersRaw.append(x[0].replace("'", ""))
+    teachersRaw.sort()
+    for teacher in teachersRaw:
+        currTeacherList = teacher.split(", ")
         if len(currTeacherList) >= 2:
             currTeacher = (currTeacherList[1] + " " + currTeacherList[0]).title()
         else:
             currTeacher = currTeacherList[0]
         teachers.append(currTeacher)
-
+    divisions.sort()
+    subjects.sort()
+    teachers
     dataToReturn = {
         'Divisions':str(divisions).removeprefix("[").removesuffix("]"), 
         'Subjects':str(subjects).removeprefix("[").removesuffix("]"),
@@ -149,9 +155,13 @@ def search():
         # Formatting the course name and course ids into a string
         strNames = ""
         strIds = ""
+        rawNamesIds = {}
         for i in results:
-            strNames += i[1]+","
-            strIds += str(i[0]) + ","
+            rawNamesIds[str(i[0])] = i[1]
+        namesIdsSorted = sorted(rawNamesIds.items(), key=lambda kv: (kv[1], kv[0]))
+        for entry in namesIdsSorted:
+            strNames += entry[1]+","
+            strIds += entry[0]+","
         strNames = strNames[0:len(strNames)-1]
         strIds = strIds[0:len(strIds)-1]
         if strNames == "":
