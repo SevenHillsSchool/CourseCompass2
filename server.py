@@ -182,7 +182,7 @@ def getCourseInfo():
     unitInfo = cursor.fetchall()
     unitIds = [unit[0] for unit in unitInfo]
     unitNames = [unit[1] for unit in unitInfo]
-    if len(teacherName) >= 2:
+    if len(teacherName.split(",")) >= 2:
         teacherName = (teacherName.split(",")[1] + " " + teacherName.split(",")[0]).title()
 
     courseInfo =  {
