@@ -46,7 +46,6 @@
       const titleEl = document.createElement('h2');
       titleEl.textContent = objective.teacher;
       objectiveDiv.appendChild(titleEl);
-
       var unitData = {{ unitInfo | tojson | safe }};
       // Iterate through the details of the current objective using a for loop
       for (let j = 0; j < objective.names.length; j++) {
@@ -72,7 +71,7 @@
 
         var theKey = "Id" + (j+1).toString();
         var currUnitData = unitData[theKey];
-        console.log(typeof currUnitData)
+        console.log(unitData)
         if (currUnitData != null) {
           var keys = Object.keys(currUnitData);
           keys.forEach(key => {

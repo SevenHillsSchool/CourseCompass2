@@ -180,6 +180,12 @@ def getCourseInfo():
     courseId = int(request.form['data'])
     dataBase = connectToData()
     cursor = dataBase.cursor()
+    global categoryKey
+    categoryKey = {}
+    cursor.execute("SELECT * FROM categoryType")
+    categories = cursor.fetchall()
+    for category in categories:
+        categoryKey[category[0]] = category[1]
     cursor.execute("SELECT courseName FROM CourseInfo WHERE courseID='%i'" % courseId)
     courseTitle = cursor.fetchall()[0][0]
     cursor.execute("SELECT userID FROM courseTeacher WHERE courseID='%i'" % courseId)
@@ -208,30 +214,15 @@ def getCourseInfo():
 
 # Used to get all the details about a class
 def getUnitInfo(unitId):
-    #unitId = int(request.form['data'])
-    # Defining a dictionary with the type ids to the category
-    categoryKey = {
-        1:"Goals", 
-        2:"Assessment",
-        3:"Content",
-        4:"Differentiation",
-        5:"Understandings",
-        6:"Questions",
-        7:"Activities",
-        8:"Resources",
-        9:"Skills",
-        10:"TechSkills"
-    }
     # Getting all of the data about the unit
     dataBase = connectToData()
     cursor = dataBase.cursor()
     allData = {}
-    for i in range(1, 11):
+    for i in range(1, len(categoryKey)+1):
         cursor.execute("SELECT text FROM unitText WHERE unitID=%i AND categoryTypeID=%i" % (unitId, i))
         currData = cursor.fetchall()
         if not len(currData) == 0:
             allData[categoryKey[i]] = currData[0][0]
-    
     return allData
 
 # Used for the edit course page to edit the courses
