@@ -9,11 +9,13 @@
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: rgba(189, 69, 32);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position:relative;
     top: 80px;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
   
   h1.course-page {
@@ -41,7 +43,7 @@
   .detail-card {
     margin: 10px 0;
     padding: 10px;
-    background-color: #f1f1f1;
+    background-color: white;
     border-left: 4px solid #007bff;
     border-radius: 4px;
   }
@@ -62,4 +64,5 @@
   }
   .dropDown.show {
     display: block;
+    color:black;
   }
