@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Info Panel Dropdown</title>
+  <style>
+    /* Basic styling for layout */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    /* Style for the toggle button */
+    .toggle-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+    /* Info panel styling */
+    .info-panel {
+      overflow: hidden;        /* Hides the content when collapsed */
+      max-height: 0;           /* Collapsed height */
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      padding: 0 10px;
+      transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    }
+    
+    /* Expanded state of the panel */
+    .info-panel.expanded {
+      padding: 10px;           /* Add padding when open */
+      max-height: 200px;       /* Adjust this value depending on your content */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button id="toggleButton" class="toggle-button">Toggle Info Panel</button>
+    <div id="infoPanel" class="info-panel">
+      <p>
+        This is some informational text inside the panel. You can add any content you want here!
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Wait until the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleButton = document.getElementById('toggleButton');
+      const infoPanel = document.getElementById('infoPanel');
+
+      toggleButton.addEventListener('click', function() {
+        // Toggle the 'expanded' class on the info panel
+        infoPanel.classList.toggle('expanded');
+      });
+    });
+    toggleButton.get
+  </script>
+</body>
+</html>
