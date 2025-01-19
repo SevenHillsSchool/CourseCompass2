@@ -230,6 +230,7 @@ def getUnitInfo(unitId):
         currData = cursor.fetchall()
         if not len(currData) == 0:
             allData[categoryKey[i]] = currData[0][0]
+    # print(allData)
     return allData
 
 # Used for the edit course page to edit the courses

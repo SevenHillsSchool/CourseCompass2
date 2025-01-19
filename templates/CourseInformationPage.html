@@ -52,6 +52,7 @@
         const unitNames = objective.names
         const unitIDs = objective.ids
 
+
         // Create a detail card container
         const detailDiv = document.createElement('div');
         detailDiv.className = 'detail-card';
@@ -69,9 +70,9 @@
         const dropDownDiv = document.createElement('div');
         dropDownDiv.textContent = "";
 
-        var theKey = "Id" + (j+1).toString();
+        var theKey = "Id" + unitIDs[j];
         var currUnitData = unitData[theKey];
-        console.log(unitData)
+        console.log(currUnitData)
         if (currUnitData != null) {
           var keys = Object.keys(currUnitData);
           keys.forEach(key => {
