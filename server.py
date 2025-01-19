@@ -188,22 +188,29 @@ def getCourseInfo():
         categoryKey[category[0]] = category[1]
     cursor.execute("SELECT courseName FROM CourseInfo WHERE courseID='%i'" % courseId)
     courseTitle = cursor.fetchall()[0][0]
+    teachers = []
     cursor.execute("SELECT userID FROM courseTeacher WHERE courseID='%i'" % courseId)
-    userId = cursor.fetchall()[0][0]
-    cursor.execute("SELECT teacherName FROM teacherName WHERE userID='%i'" % int(userId))
-    teacherNameData = cursor.fetchall()
-    if len(teacherNameData) >= 1:
-        teacherName = teacherNameData[0][0]
+    userId = cursor.fetchall()
+    for user in userId:
+        cursor.execute("SELECT teacherName FROM teacherName WHERE userID='%i'" % int(user[0]))
+        teacherNameData = cursor.fetchall()
+        if len(teacherNameData) >= 1:
+            teacherName = teacherNameData[0][0]
+        if len(teacherName.split(",")) >= 2:
+            teachers.append((teacherName.split(",")[1] + " " + teacherName.split(",")[0]).title())
     cursor.execute("SELECT unitID, unitName FROM Unit WHERE courseID='%i'" % courseId)
     unitInfo = cursor.fetchall()
     unitIds = [unit[0] for unit in unitInfo]
     unitNames = [unit[1] for unit in unitInfo]
-    if len(teacherName.split(",")) >= 2:
-        teacherName = (teacherName.split(",")[1] + " " + teacherName.split(",")[0]).title()
+
+    teacherStr = ""
+    for teacher in teachers:
+        teacherStr += (teacher.replace("'", "") + ", ")
+    
 
     courseInfo =  {
         "Title":courseTitle,
-        "Teacher":teacherName,
+        "Teacher":teacherStr.removesuffix(", "),
         "UnitIds":str(unitIds).removeprefix("[").removesuffix("]"),
         "UnitNames":str(unitNames).removeprefix("[").removesuffix("]")
     } 

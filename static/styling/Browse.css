@@ -1,4 +1,4 @@
-.Home-header {
+/* .Home-header {
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
@@ -7,15 +7,16 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
-}
+} */
 
-.thing {
+.textBox {
     overflow-y: auto; /* Enables vertical scrolling */
     overflow-x: hidden; /* Prevents horizontal scrolling */
     height: 500px;
     border-width: 1px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
+    caret-color: white;
   }
 
 .Browse {
@@ -28,8 +29,22 @@
 
 .results {
     position: relative;
-    top: 50px;
-    color: #6d4dff;
+    top: 100px;
+    color: white;
+}
+
+.link-button {
+    background-color: rgba(99, 91, 132);
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
 }
 
 .dropdownMenu {
@@ -39,27 +54,28 @@
 }
 
 .dropdown {
-    background-color: rgba(211,124,63,1);
+    background-color: rgb(53, 121, 246);
     border: none;
     color: white;
-    padding: 15px;
+    padding: 8px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 20px;
     margin: 4px 2px;
     border-radius: 10px;
 }
 
 .sendBtn {
-    background-color: rgba(211,124,63,1);
+    background-color: rgba(53, 121, 246);
     border: none;
     color: white;
     padding: 15px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-top: 0px;
     border-radius: 10px;
 }

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Browse</title>
   <link rel="stylesheet" href="../static/styling/Browse.css">
+  <link rel="stylesheet" href="../static/styling/Home.css">
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       let selectedOption1 = '';
@@ -81,7 +82,6 @@
                 </form>
               </li>`;
           });
-
           resultText += "</ul>";
           resultsContainer.innerHTML = resultText;
         }
@@ -113,8 +113,9 @@
 </head>
 <body class="Home-header">
   {% include "NavigationBar.html" %}
-  <div style="padding: 100px; font-family: Arial, sans-serif;">
-    <h1>Please Select School/Department/Course/Teacher</h1>
+  <div style="padding: 80px; font-family: Arial, sans-serif;">
+    <h1>Explore Courses</h1>
+    <h5>Use the dropdowns to filter courses</h5>
 
     <!-- Dropdowns for filtering -->
     <div class="dropdownMenu">
@@ -132,8 +133,10 @@
     <div style="margin-top: 20px;">
     </div>
 
+    <div class="dropdownMenu">
     <button id="searchBtn" class="sendBtn">Search</button>
-    <div id="results" class="thing"></div>
+    </div>
+    <div id="results" class="textBox"></div>
   </div>
 </body>
 </html>
