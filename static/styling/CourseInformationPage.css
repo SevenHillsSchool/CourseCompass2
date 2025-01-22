@@ -3,10 +3,13 @@
     margin: 0;
     padding: 0;
     background-color: #f9f9f9;
+    /* overflow:auto; */
+    z-index: 1;
   }
-  
+
   .course-page {
     max-width: 800px;
+    width:800px;
     margin: 20px auto;
     padding: 20px;
     background-color: rgba(189, 69, 32);
@@ -14,8 +17,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position:relative;
     top: 80px;
-    overflow-x: hidden;
-    overflow-y: auto;
+    z-index: 1;
   }
   
   h1.course-page {
@@ -25,6 +27,7 @@
   
   .objective-section {
     margin-top: 20px;
+    z-index: 1;
   }
   
   .objective {
@@ -46,6 +49,7 @@
     background-color: white;
     border-left: 4px solid #007bff;
     border-radius: 4px;
+    z-index: 1;
   }
   
   .detail-card h3 {
