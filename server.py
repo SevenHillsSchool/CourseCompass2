@@ -3,7 +3,6 @@ import mysql.connector
 
 app = Flask(__name__)
 
-# Creates a connection to the database
 def connectToData():
     dataBase = mysql.connector.connect(
         host="sql5.freemysqlhosting.net",
@@ -191,13 +190,26 @@ def getCourseInfo():
     teachers = []
     cursor.execute("SELECT userID FROM courseTeacher WHERE courseID='%i'" % courseId)
     userId = cursor.fetchall()
-    for user in userId:
-        cursor.execute("SELECT teacherName FROM teacherName WHERE userID='%i'" % int(user[0]))
-        teacherNameData = cursor.fetchall()
-        if len(teacherNameData) >= 1:
-            teacherName = teacherNameData[0][0]
-        if len(teacherName.split(",")) >= 2:
-            teachers.append((teacherName.split(",")[1] + " " + teacherName.split(",")[0]).title())
+    # Get a list of user IDs from userId
+    user_ids = [int(user[0]) for user in userId]
+    teachers = []
+
+    if user_ids:
+        # Create a parameterized IN-clause
+        format_strings = ','.join(['%s'] * len(user_ids))
+        query = "SELECT teacherName FROM teacherName WHERE userID IN ({})".format(format_strings)
+        cursor.execute(query, tuple(user_ids))
+        teacherRows = cursor.fetchall()
+
+        # Process each teacherName from the batch query result
+        for row in teacherRows:
+            teacherName = row[0]
+            parts = teacherName.split(", ")
+            if len(parts) >= 2:
+                formatted = (parts[1] + " " + parts[0]).title()
+                teachers.append(formatted)
+            else:
+                teachers.append(teacherName)
     cursor.execute("SELECT unitID, unitName FROM Unit WHERE courseID='%i'" % courseId)
     unitInfo = cursor.fetchall()
     unitIds = [unit[0] for unit in unitInfo]
@@ -221,16 +233,23 @@ def getCourseInfo():
 
 # Used to get all the details about a class
 def getUnitInfo(unitId):
-    # Getting all of the data about the unit
+    # Getting all of the data about the unit in a single query
     dataBase = connectToData()
     cursor = dataBase.cursor()
     allData = {}
-    for i in range(1, len(categoryKey)+1):
-        cursor.execute("SELECT text FROM unitText WHERE unitID=%i AND categoryTypeID=%i" % (unitId, i))
-        currData = cursor.fetchall()
-        if not len(currData) == 0:
-            allData[categoryKey[i]] = currData[0][0]
-    # print(allData)
+
+    # Retrieve all unitText rows for the given unitId in one query
+    query = "SELECT categoryTypeID, text FROM unitText WHERE unitID = %s"
+    cursor.execute(query, (unitId,))
+    rows = cursor.fetchall()
+
+    # Map each row's category to its text using categoryKey
+    for categoryID, text in rows:
+        if categoryID in categoryKey:
+            allData[categoryKey[categoryID]] = text
+
+    cursor.close()
+    dataBase.close()
     return allData
 
 # Used for the edit course page to edit the courses
