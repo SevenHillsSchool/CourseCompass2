@@ -1,5 +1,7 @@
 from flask import Flask, redirect, url_for, request, render_template
 import mysql.connector
+import json
+from urllib.parse import unquote
 
 app = Flask(__name__)
 
@@ -23,6 +25,19 @@ def navBar():
 @app.route('/courseInfo')
 def courseInfo():
     return render_template("CourseInformationPage.html")
+
+@app.route('/editPage', methods=['POST'])
+def editPage():
+    # Get the encoded JSON string from the form data
+    encoded_unit_data = request.form.get('unitData')
+    
+    # Decode the URL-encoded string
+    decoded_unit_data = unquote(encoded_unit_data)
+    
+    # Convert the JSON string into a Python dictionary
+    #unit_data = json.loads(decoded_unit_data)
+    return decoded_unit_data
+    #return render_template("LessonPlanPage.html")
 
 def populate():
     # Connecting to the server
@@ -251,6 +266,10 @@ def getUnitInfo(unitId):
     cursor.close()
     dataBase.close()
     return allData
+
+# Used to populate the edit page
+def popEditPage(unitId):
+    return "nothing"
 
 # Used for the edit course page to edit the courses
 @app.route("/editCourse") #, methods=['POST'])

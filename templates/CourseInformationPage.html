@@ -13,10 +13,10 @@
   {% include "NavigationBar.html" %} 
   <div class="course-page">
     <h1 id="title-output"></h1>
-      <script>
-        var title = {{ courseInfo.Title | tojson | safe }}.split('"').join("");
-        document.getElementById('title-output').textContent = title;
-      </script>
+    <script>
+      var title = {{ courseInfo.Title | tojson | safe }}.split('"').join("");
+      document.getElementById('title-output').textContent = title;
+    </script>
     <!-- Container for objective sections -->
     <div class="objective-section" id="objective-section"></div>
   </div>
@@ -43,9 +43,16 @@
       const objectiveDiv = document.createElement('div');
       objectiveDiv.className = 'objective';
 
+      // Create a div for the title and edit button
+      const titleDiv = document.createElement('div');
+      titleDiv.className = 'title-div';
+
       // Create and append the title element
       const titleEl = document.createElement('h2');
       titleEl.textContent = objective.teacher;
+      const editBtn = document.createElement('h2');
+      //editBtn.innerHTML = '<a href="/edit">Edit Course</a>';
+      //titleDiv.appendChild(titleE1);
       objectiveDiv.appendChild(titleEl);
       var unitData = {{ unitInfo | tojson | safe }};
       // Iterate through the details of the current objective using a for loop
@@ -59,14 +66,28 @@
         detailDiv.className = 'detail-card';
         detailDiv.id = unitIDs[j];
         detailDiv.addEventListener("click", function() {
-        document.getElementById("Dropdown"+this.id).classList.toggle("show");
+          document.getElementById("Dropdown"+this.id).classList.toggle("show");
         })
         
+        const headingDiv = document.createElement('div');
+        headingDiv.className = "heading-div";
 
         // Create and append detail id element
         const detailTextEl = document.createElement('h3');
         detailTextEl.textContent = unitNames[j].split("'").join("");
-        detailDiv.appendChild(detailTextEl);
+        headingDiv.appendChild(detailTextEl);
+
+        const editLink = document.createElement('h3');
+        let unitStr = JSON.stringify(unitData);
+        let htmlText = `
+                <form action="/editPage" method="POST">
+                <input type="hidden" name="unitData" value='${encodeURIComponent(unitStr)}'>
+                <button onclick="window.location.href'{{url_for('editPage')}}'">Edit</button>
+                </form>`;
+        editLink.innerHTML = htmlText;
+        headingDiv.appendChild(editLink);
+
+        detailDiv.appendChild(headingDiv);
 
         const dropDownDiv = document.createElement('div');
         dropDownDiv.textContent = "";
