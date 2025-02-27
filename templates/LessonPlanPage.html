@@ -10,6 +10,29 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jodit@3.4.39/build/jodit.min.css">
 
 </head>
+<script>
+    // Getting the data from the python file in a json format
+    var unitData = {{unitData | tojson | safe}}.split(",");
+    var unitJson;
+    console.log(unitData)
+    // unitData.forEach(function(data) {
+    //     console.log(data);
+    //     currTrait = data.split(": ");
+    //     console.log(currTrait[1]);
+    //     unitJson[currTrait[0]] = currTrait[1];
+    // });
+    // console.log(unitJson.Title);
+    let title = unitData[0].split(": ")[1];
+    console.log(title);
+    let goals = unitData[1].split(": ")[1];
+    let assessment = unitData[2].split(": ")[1];
+    let content = unitData[3].split(": ")[1];
+    let differentiation = unitData[4].split(": ")[1];
+    let eAndI = unitData[5].split(": ")[1];
+    let questions = unitData[6].split(": ")[1];
+    let activities = unitData[7].split(": ")[1];
+    let resources = unitData[8].split(": ")[1];
+</script>
 <body>
     {% include "NavigationBar.html" %}
     <div class="lesson-plan-container">
@@ -18,8 +41,9 @@
         <!-- Unit Title -->
         <div class="field-container">
             <label for="title">Unit:</label>
-            <p id="title-text">Title</p>
-            <input type="text" id="title-input" value="Title" style="display:none;">
+            <p id="title-text"></p>
+            <script>document.getElementById('title-text').textContent = title;</script>
+            <input type="text" id="title-input" value="Hello" style="display:none;">
         </div>
         <!-- Duration -->
         <div class="field-container">

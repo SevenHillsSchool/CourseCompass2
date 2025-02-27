@@ -33,11 +33,8 @@ def editPage():
     
     # Decode the URL-encoded string
     decoded_unit_data = unquote(encoded_unit_data)
-    
-    # Convert the JSON string into a Python dictionary
-    #unit_data = json.loads(decoded_unit_data)
-    return decoded_unit_data
-    #return render_template("LessonPlanPage.html")
+    print("Data: " + decoded_unit_data)
+    return render_template("LessonPlanPage.html", unitData=decoded_unit_data)
 
 def populate():
     # Connecting to the server
