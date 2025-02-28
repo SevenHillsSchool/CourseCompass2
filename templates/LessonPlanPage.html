@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unit Overview</title>
     <link rel="stylesheet" href="static/styling/EditCourse.css">
-    <script src="https://cdn.jsdelivr.net/npm/jodit@3.4.39/build/jodit.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jodit@3.4.39/build/jodit.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jodit/build/jodit.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jodit/build/jodit.min.css">
 
 </head>
 <script>
@@ -32,6 +32,9 @@
     let questions = unitData[6].split(": ")[1];
     let activities = unitData[7].split(": ")[1];
     let resources = unitData[8].split(": ")[1];
+    let essentialQuestionValue = "Essential Question"; // This is a temporary test variable
+    let lessonDescriptionValue = "Unit Description"; // This is a temporary test variable
+
 </script>
 <body>
     {% include "NavigationBar.html" %}
@@ -64,14 +67,14 @@ Standard 3</textarea>
             <!-- Essential Question -->
             <div class="field-container1">
                 <label for="essential-question">Inclusive Essential Question:</label>
-                <p id="essential-question-text">Essential question</p>
-                <textarea id="essential-question-input" style="display:none;">Essential question</textarea>
+                <p id="essential-question-text"></p> 
+                <textarea id="essential-question-input" style="display:none;"></textarea>
             </div>
             <!-- Lesson Description -->
             <div class="field-container2">
                 <label for="lesson-description">Lesson Description:</label>
-                <p id="lesson-description-text">Unit description</p>
-                <textarea id="lesson-description-input" style="display:none;">Unit description</textarea>
+                <p id="lesson-description-text"></p>
+                <textarea id="lesson-description-input" style="display:none;"></textarea>
             </div>
         </div>
         <!-- Integrated Learning Objective -->
@@ -84,13 +87,19 @@ Standard 3</textarea>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const toggleButton = document.getElementById("toggle-edit");
-            const isEditing = {
-                value: false
-            };
+            document.getElementById("essential-question-text").innerText = essentialQuestionValue;
+            document.getElementById("essential-question-input").value = essentialQuestionValue;
+            document.getElementById("lesson-description-text").innerText = lessonDescriptionValue;
+            document.getElementById("lesson-description-input").value = lessonDescriptionValue;
+            const isEditing = { value: false };
+            let essentialQuestionEditor = null;
+            let lessonDescriptionEditor = null;
+      
             toggleButton.addEventListener("click", function () {
                 isEditing.value = !isEditing.value;
                 updateView();
             });
+      
             function updateView() {
                 const fields = [
                     { textId: "title-text", inputId: "title-input" },
@@ -113,20 +122,45 @@ Standard 3</textarea>
                 });
                 toggleButton.textContent = isEditing.value ? "View Mode" : "Edit Mode";
                 toggleButton.setAttribute("aria-label", isEditing.value ? "Switch to view mode" : "Switch to edit mode");
+      
+                if (isEditing.value) {
+                    // Initialize editors if they haven't been created yet.
+                    if (!essentialQuestionEditor) {
+                        essentialQuestionEditor = new Jodit("#essential-question-input", {
+                            readonly: false,
+                            toolbarButtonSize: "xsmall",
+                            toolbarSticky: false,
+                            value: document.getElementById("essential-question-text").innerHTML
+                        });
+                    }
+                    if (!lessonDescriptionEditor) {
+                        lessonDescriptionEditor = new Jodit("#lesson-description-input", {
+                            readonly: false,
+                            toolbarButtonSize: "xsmall",
+                            toolbarSticky: false,
+                            value: document.getElementById("lesson-description-input").innerHTML
+                        });
+                    }
+                } else {
+                    // Destroy the editors if they exist, reverting to a plain textarea.
+                    if (essentialQuestionEditor) {
+                        document.getElementById("essential-question-text").innerHTML = essentialQuestionEditor.value;
+                        essentialQuestionEditor.destruct();
+                        essentialQuestionEditor = null;
+                        document.getElementById("essential-question-input").style.display = "none";
+                    }
+                    if (lessonDescriptionEditor) {
+                        document.getElementById("lesson-description-input").innerHTML = lessonDescriptionEditor.value;
+                        lessonDescriptionEditor.destruct();
+                        lessonDescriptionEditor = null;
+                        document.getElementById("lesson-description-input").style.display = "none";
+                    }
+                }
             }
+      
+            // Initial call to set the correct view.
             updateView();
         });
-        // Initialize Jodit Editors for Essential Question and Lesson Description
-        const essentialQuestionEditor = new Jodit("#essential-question-input", {
-            readonly: false,
-            toolbarButtonSize: "xsmall",
-            toolbarSticky: false
-        });
-        const lessonDescriptionEditor = new Jodit("#lesson-description-input", {
-            readonly: false,
-            toolbarButtonSize: "xsmall",
-            toolbarSticky: false
-        });
-    </script>
+      </script>      
 </body>
 </html>
