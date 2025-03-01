@@ -266,8 +266,21 @@ def getUnitInfo(unitId):
 
 @app.route("/saveEdits", methods=['POST'])
 def saveEdits():
-    edits = request.form['editData']
-    print(edits)
+    """ TODO: Store course ID and pass in here 
+        Get category type ID from category name
+            - This will require us to ensure category names passed into this method are identical to those in the database
+        Update specific columns of unitText based on categoryType and categoryName
+        ADD THE ABILITY TO CHANGE/SAVE TITLE (Make it a rich text box)
+    
+    """
+
+    edits = request.form['editData'].split("@#|")
+    dictEdits = dict()
+    for edit in edits:
+        if edit:
+            print(edit.split("||| "))
+            e1, e2 = edit.split("||| ")
+            dictEdits[e1] = e2  
     return edits
 
 # Used for the edit course page to edit the courses

@@ -12,15 +12,16 @@
     // Getting the data from the Python file in a JSON format
     var unitData = {{unitData | tojson | safe}}.split("@#");
     console.log(unitData);
-    let title = unitData[0].split("||| ")[1]; // Done
-    let goalsValue = unitData[1].split("||| ")[1]; // Done
-    let assessmentsValue = unitData[2].split("||| ")[1]; // Done
-    let content = unitData[3].split("||| ")[1];
-    let differentiation = unitData[4].split("||| ")[1];
-    let eAndI = unitData[5].split("||| ")[1];
-    let essentialQuestionValue = unitData[6].split("||| ")[1]; // Done
-    let activities = unitData[7].split("||| ")[1];
-    let resources = unitData[8].split("||| ")[1]; // Done
+    let unitID = unitData[0].split("||| ")[1]
+    let title = unitData[1].split("||| ")[1]; // LIAR
+    let goalsValue = unitData[2].split("||| ")[1]; // Done
+    let assessmentsValue = unitData[3].split("||| ")[1]; // Done
+    let content = unitData[4].split("||| ")[1];
+    let differentiation = unitData[5].split("||| ")[1];
+    let eAndI = unitData[6].split("||| ")[1];
+    let essentialQuestionValue = unitData[7].split("||| ")[1]; // Done
+    let activities = unitData[8].split("||| ")[1];
+    let resources = unitData[9].split("||| ")[1]; // Done
     let dataList = {title, goalsValue, assessmentsValue, content, differentiation, eAndI, essentialQuestionValue, activities, resources};
 </script>
 <body>
@@ -111,19 +112,36 @@
             });
 
             saveButton.addEventListener("click", function () {
-                submit_data(compare_data());
+                submitData(compareData());
             });
 
-            function compare_data() {
+            function compareData() {
                 let newResources = document.getElementById("resources-text").innerHTML;
-
+                let newGoals = document.getElementById("goals-text").innerHTML; // Done
+                let newAssessments = document.getElementById("assessments-text").innerHTML; // Done
+                let newActivities = document.getElementById("activities-text").innerHTML;
+                let newEQ = document.getElementById("essential-question-text").innerHTML;
+                let buildStr = "UnitID||| " + unitID + "@#|";
                 if (resources != newResources) {
-                    return "Changed"
+                    buildStr += "Resources||| " + newResources + "@#|";
                 }
-                return "The Same"
+                if (goalsValue != newGoals) {
+                    buildStr += "Goals||| " + newGoals + "@#|";
+                }
+                if (assessmentsValue != newAssessments) {
+                    buildStr += "Assessments||| " + newAssessments + "@#|";
+                }
+                if (essentialQuestionValue != newEQ) {
+                    buildStr += "Essential Question||| " + newEQ + "@#|";
+                }
+                if (activities != newActivities) {
+                    buildStr += "Activities||| " + newActivities + "@#|";
+
+                }
+                return buildStr;
             }
 
-            function submit_data(data) {
+            function submitData(data) {
                 document.getElementById("submit-data").value = data;
                 document.getElementById("submit-form").submit();
             }
