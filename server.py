@@ -266,7 +266,7 @@ def getUnitInfo(unitId):
 
 @app.route("/saveEdits", methods=['POST'])
 def saveEdits():
-    """ TODO: Store course ID and pass in here 
+    """ TODO:
         Get category type ID from category name
             - This will require us to ensure category names passed into this method are identical to those in the database
         Update specific columns of unitText based on categoryType and categoryName
