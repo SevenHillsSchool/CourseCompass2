@@ -264,9 +264,11 @@ def getUnitInfo(unitId):
     dataBase.close()
     return allData
 
-# Used to populate the edit page
-def popEditPage(unitId):
-    return "nothing"
+@app.route("/saveEdits", methods=['POST'])
+def saveEdits():
+    edits = request.form['editData']
+    print(edits)
+    return edits
 
 # Used for the edit course page to edit the courses
 @app.route("/editCourse") #, methods=['POST'])

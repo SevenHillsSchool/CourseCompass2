@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,107 +7,137 @@
     <link rel="stylesheet" href="static/styling/EditCourse.css">
     <script src="https://cdn.jsdelivr.net/npm/jodit/build/jodit.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jodit/build/jodit.min.css">
-
 </head>
 <script>
-    // Getting the data from the python file in a json format
-    var unitData = {{unitData | tojson | safe}}.split(",");
-    var unitJson;
-    console.log(unitData)
-    // unitData.forEach(function(data) {
-    //     console.log(data);
-    //     currTrait = data.split(": ");
-    //     console.log(currTrait[1]);
-    //     unitJson[currTrait[0]] = currTrait[1];
-    // });
-    // console.log(unitJson.Title);
-    let title = unitData[0].split(": ")[1];
-    console.log(title);
-    let goals = unitData[1].split(": ")[1];
-    let assessment = unitData[2].split(": ")[1];
-    let content = unitData[3].split(": ")[1];
-    let differentiation = unitData[4].split(": ")[1];
-    let eAndI = unitData[5].split(": ")[1];
-    let questions = unitData[6].split(": ")[1];
-    let activities = unitData[7].split(": ")[1];
-    let resources = unitData[8].split(": ")[1];
-    let essentialQuestionValue = "Essential Question"; // This is a temporary test variable
-    let lessonDescriptionValue = "Unit Description"; // This is a temporary test variable
-
+    // Getting the data from the Python file in a JSON format
+    var unitData = {{unitData | tojson | safe}}.split("@#");
+    console.log(unitData);
+    let title = unitData[0].split("||| ")[1]; // Done
+    let goalsValue = unitData[1].split("||| ")[1]; // Done
+    let assessmentsValue = unitData[2].split("||| ")[1]; // Done
+    let content = unitData[3].split("||| ")[1];
+    let differentiation = unitData[4].split("||| ")[1];
+    let eAndI = unitData[5].split("||| ")[1];
+    let essentialQuestionValue = unitData[6].split("||| ")[1]; // Done
+    let activities = unitData[7].split("||| ")[1];
+    let resources = unitData[8].split("||| ")[1]; // Done
+    let dataList = {title, goalsValue, assessmentsValue, content, differentiation, eAndI, essentialQuestionValue, activities, resources};
 </script>
 <body>
     {% include "NavigationBar.html" %}
     <div class="lesson-plan-container">
         <h1>Unit Overview</h1>
-        <button id="toggle-edit" class="toggle-button" aria-label="Switch to edit mode">Edit Mode</button>
+        <div class="buttons-header">
+            <button id="toggle-edit" class="toggle-button" aria-label="Switch to edit mode">Edit Mode</button>
+            <button id="save" class="toggle-button" aria-label="Save">Save</button>
+            <form id="submit-form" action="/saveEdits" method="POST">
+                <input type="hidden" id="submit-data" name="editData">
+            </form>
+
+        </div>
+
         <!-- Unit Title -->
         <div class="field-container">
             <label for="title">Unit:</label>
             <p id="title-text"></p>
             <script>document.getElementById('title-text').textContent = title;</script>
-            <input type="text" id="title-input" value="Hello" style="display:none;">
+            <input type="text" id="title-input" style="display:none;">
+            <script>document.getElementById('title-input').value = title;</script>
         </div>
-        <!-- Duration -->
+
+        <!-- Goals -->
         <div class="field-container">
-            <label for="duration">Duration:</label>
-            <p id="duration-text">2021-04-05 to 2021-04-09</p>
-            <input type="text" id="duration-input" value="2021-04-05 to 2021-04-09" style="display:none;">
+            <label for="goals">21st Century Learning Goals:</label>
+            <p id="goals-text"></p>
+            <textarea id="goals-input" style="display:none;"></textarea>
         </div>
-        <!-- Standards -->
+
+        <!-- Assessments -->
         <div class="field-container">
-            <label for="standards">Standards:</label>
-            <p id="standards-text">Standard 1, Standard 2, Standard 3</p>
-            <textarea id="standards-input" style="display:none;">Standard 1
-Standard 2
-Standard 3</textarea>
+            <label for="assessments">Assessments:</label>
+            <p id="assessments-text"></p>
+            <textarea id="assessments-input" style="display:none;"></textarea>
         </div>
+
         <!-- Essential Question and Lesson Description -->
         <div class="two-fields">
             <!-- Essential Question -->
             <div class="field-container1">
                 <label for="essential-question">Inclusive Essential Question:</label>
-                <p id="essential-question-text"></p> 
+                <p id="essential-question-text"></p>
                 <textarea id="essential-question-input" style="display:none;"></textarea>
             </div>
-            <!-- Lesson Description -->
+            <!-- Resources -->
             <div class="field-container2">
-                <label for="lesson-description">Lesson Description:</label>
-                <p id="lesson-description-text"></p>
-                <textarea id="lesson-description-input" style="display:none;"></textarea>
+                <label for="resources">Resources:</label>
+                <p id="resources-text"></p>
+                <textarea id="resources-input" style="display:none;"></textarea>
             </div>
         </div>
-        <!-- Integrated Learning Objective -->
+
+        <!-- Activities -->
         <div class="field-container">
-            <label for="learning-objective">Integrated Learning Objective:</label>
-            <p id="learning-objective-text">Objectives</p>
-            <input type="text" id="learning-objective-input" value="Objectives" style="display:none;">
+            <label for="activities">Activities:</label>
+            <p id="activities-text"></p>
+            <textarea id="activities-input" style="display:none;"></textarea>
         </div>
     </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const toggleButton = document.getElementById("toggle-edit");
-            document.getElementById("essential-question-text").innerText = essentialQuestionValue;
+            const saveButton = document.getElementById("save");
+            document.getElementById("goals-text").innerHTML = goalsValue;
+            document.getElementById("goals-input").value = goalsValue;
+            document.getElementById("resources-text").innerHTML = resources;
+            document.getElementById("resources-input").value = resources;
+            document.getElementById("activities-text").innerHTML = activities;
+            document.getElementById("activities-input").value = activities;
+            document.getElementById("assessments-text").innerHTML = assessmentsValue;
+            document.getElementById("assessments-input").value = assessmentsValue;
+            document.getElementById("essential-question-text").innerHTML = essentialQuestionValue;
             document.getElementById("essential-question-input").value = essentialQuestionValue;
-            document.getElementById("lesson-description-text").innerText = lessonDescriptionValue;
-            document.getElementById("lesson-description-input").value = lessonDescriptionValue;
+
             const isEditing = { value: false };
+            let goalsEditor = null;
+            let assessmentsEditor = null;
+            let resourcesEditor = null;
+            let activitiesEditor = null;
             let essentialQuestionEditor = null;
-            let lessonDescriptionEditor = null;
-      
+
             toggleButton.addEventListener("click", function () {
                 isEditing.value = !isEditing.value;
                 updateView();
             });
-      
+
+            saveButton.addEventListener("click", function () {
+                submit_data(compare_data());
+            });
+
+            function compare_data() {
+                let newResources = document.getElementById("resources-text").innerHTML;
+
+                if (resources != newResources) {
+                    return "Changed"
+                }
+                return "The Same"
+            }
+
+            function submit_data(data) {
+                document.getElementById("submit-data").value = data;
+                document.getElementById("submit-form").submit();
+            }
+
             function updateView() {
                 const fields = [
                     { textId: "title-text", inputId: "title-input" },
-                    { textId: "duration-text", inputId: "duration-input" },
-                    { textId: "standards-text", inputId: "standards-input" },
-                    { textId: "essential-question-text", inputId: "essential-question-input" },
-                    { textId: "lesson-description-text", inputId: "lesson-description-input" },
-                    { textId: "learning-objective-text", inputId: "learning-objective-input" }
+                    { textId: "goals-text", inputId: "goals-input" },
+                    { textId: "assessments-text", inputId: "assessments-input" },
+                    { textId: "resources-text", inputId: "resources-input" },
+                    { textId: "activities-text", inputId: "activities-input" },
+                    { textId: "essential-question-text", inputId: "essential-question-input" }
                 ];
+
                 fields.forEach(({ textId, inputId }) => {
                     const textElement = document.getElementById(textId);
                     const inputElement = document.getElementById(inputId);
@@ -120,11 +149,44 @@ Standard 3</textarea>
                         inputElement.style.display = "none";
                     }
                 });
+
                 toggleButton.textContent = isEditing.value ? "View Mode" : "Edit Mode";
                 toggleButton.setAttribute("aria-label", isEditing.value ? "Switch to view mode" : "Switch to edit mode");
-      
+
                 if (isEditing.value) {
                     // Initialize editors if they haven't been created yet.
+                    if (!goalsEditor) {
+                        goalsEditor = new Jodit("#goals-input", {
+                            readonly: false,
+                            toolbarButtonSize: "xsmall",
+                            toolbarSticky: false,
+                            value: document.getElementById("goals-text").innerHTML
+                        });
+                    }
+                    if (!assessmentsEditor) {
+                        assessmentsEditor = new Jodit("#assessments-input", {
+                            readonly: false,
+                            toolbarButtonSize: "xsmall",
+                            toolbarSticky: false,
+                            value: document.getElementById("assessments-text").innerHTML
+                        });
+                    }
+                    if (!resourcesEditor) {
+                        resourcesEditor = new Jodit("#resources-input", {
+                            readonly: false,
+                            toolbarButtonSize: "xsmall",
+                            toolbarSticky: false,
+                            value: document.getElementById("resources-text").innerHTML
+                        });
+                    }
+                    if (!activitiesEditor) {
+                        activitiesEditor = new Jodit("#activities-input", {
+                            readonly: false,
+                            toolbarButtonSize: "xsmall",
+                            toolbarSticky: false,
+                            value: document.getElementById("activities-text").innerHTML
+                        });
+                    }
                     if (!essentialQuestionEditor) {
                         essentialQuestionEditor = new Jodit("#essential-question-input", {
                             readonly: false,
@@ -133,34 +195,47 @@ Standard 3</textarea>
                             value: document.getElementById("essential-question-text").innerHTML
                         });
                     }
-                    if (!lessonDescriptionEditor) {
-                        lessonDescriptionEditor = new Jodit("#lesson-description-input", {
-                            readonly: false,
-                            toolbarButtonSize: "xsmall",
-                            toolbarSticky: false,
-                            value: document.getElementById("lesson-description-input").innerHTML
-                        });
-                    }
                 } else {
                     // Destroy the editors if they exist, reverting to a plain textarea.
+                    if (goalsEditor) {
+                        document.getElementById("goals-text").innerHTML = goalsEditor.value;
+                        goalsEditor.destruct();
+                        goalsEditor = null;
+                        document.getElementById("goals-input").style.display = "none";
+                    }
+                    if (assessmentsEditor) {
+                        document.getElementById("assessments-text").innerHTML = assessmentsEditor.value;
+                        assessmentsEditor.destruct();
+                        assessmentsEditor = null;
+                        document.getElementById("assessments-input").style.display = "none";
+                    }
+                    if (resourcesEditor) {
+                        document.getElementById("resources-text").innerHTML = resourcesEditor.value;
+                        resourcesEditor.destruct();
+                        resourcesEditor = null;
+                        document.getElementById("resources-input").style.display = "none";
+                    }
+                    if (activitiesEditor) {
+                        document.getElementById("activities-text").innerHTML = activitiesEditor.value;
+                        activitiesEditor.destruct();
+                        activitiesEditor = null;
+                        document.getElementById("activities-input").style.display = "none";
+                    }
                     if (essentialQuestionEditor) {
                         document.getElementById("essential-question-text").innerHTML = essentialQuestionEditor.value;
                         essentialQuestionEditor.destruct();
                         essentialQuestionEditor = null;
                         document.getElementById("essential-question-input").style.display = "none";
                     }
-                    if (lessonDescriptionEditor) {
-                        document.getElementById("lesson-description-input").innerHTML = lessonDescriptionEditor.value;
-                        lessonDescriptionEditor.destruct();
-                        lessonDescriptionEditor = null;
-                        document.getElementById("lesson-description-input").style.display = "none";
-                    }
                 }
             }
-      
+
+
             // Initial call to set the correct view.
             updateView();
+
+
         });
-      </script>      
+    </script>
 </body>
 </html>
