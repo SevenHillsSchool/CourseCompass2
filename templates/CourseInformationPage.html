@@ -80,17 +80,17 @@
         var currUnitData = unitData[theKey];
 
         const editLink = document.createElement('h3');
-        let unitStr = "Id||| " + unitIDs[j] + "@#Title||| " + unitNames[j].split("'").join("").split(":").join("");
+        let unitStr = "Id||| " + unitIDs[j] + "@!Title||| " + unitNames[j].split("'").join("").split(":").join("");
 
         const dropDownDiv = document.createElement('div');
         dropDownDiv.textContent = "";
 
-        console.log(currUnitData)
+        // console.log(currUnitData)
         if (currUnitData != null) {
           var keys = Object.keys(currUnitData);
           keys.forEach(key => {
             dropDownDiv.innerHTML += "<h3> " + key + "</h3>" + currUnitData[key];
-            unitStr += "@#" + key + "||| " + currUnitData[key];
+            unitStr += "@!" + key + "||| " + currUnitData[key];
           })
         }
         //var theTitle = currUnitData.Title
@@ -101,7 +101,7 @@
         console.log(unitStr)
         let htmlText = `
                 <form action="/editPage" method="POST">
-                <input type="hidden" name="unitData" value='${encodeURIComponent(unitStr)}'>
+                <input type="hidden" name="unitData" value="${encodeURIComponent(unitStr)}">
                 <button onclick="window.location.href'{{url_for('editPage')}}'">Edit</button>
                 </form>`;
         editLink.innerHTML = htmlText;

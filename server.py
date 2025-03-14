@@ -192,7 +192,7 @@ def getCourseInfo():
     dataBase = connectToData()
     cursor = dataBase.cursor()
     global categoryKey
-    categoryKey = {}
+    categoryKey = dict()
     cursor.execute("SELECT * FROM categoryType")
     categories = cursor.fetchall()
     for category in categories:
@@ -275,12 +275,27 @@ def saveEdits():
     """
 
     edits = request.form['editData'].split("@#|")
-    dictEdits = dict()
-    for edit in edits:
+    categoryCopy = {value: key for key, value in categoryKey.items()}
+    dataBase = connectToData()
+    cursor = dataBase.cursor()
+    print(categoryCopy)
+    unitID = edits[0]
+    print(unitID)
+    for edit in edits[1:]:
         if edit:
             print(edit.split("||| "))
-            e1, e2 = edit.split("||| ")
-            dictEdits[e1] = e2  
+            contentType, content = edit.split("||| ")
+            if contentType == "Title":
+                pass
+            else:
+                currCategory = categoryCopy[contentType]
+                print(currCategory)
+                statement = "UPDATE unitText SET text = %s WHERE unitID = %s AND categoryTypeID = %s"
+                cursor.execute(statement, (content, unitID, currCategory))
+                print("Rows affected:", cursor.rowcount)
+
+    
+    dataBase.commit()
     return edits
 
 # Used for the edit course page to edit the courses

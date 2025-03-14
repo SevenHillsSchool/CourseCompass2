@@ -10,7 +10,7 @@
 </head>
 <script>
     // Getting the data from the Python file in a JSON format
-    var unitData = {{unitData | tojson | safe}}.split("@#");
+    var unitData = {{unitData | tojson | safe}}.split("@!");
     console.log(unitData);
     let unitID = unitData[0].split("||| ")[1]
     let title = unitData[1].split("||| ")[1]; // LIAR
@@ -126,16 +126,16 @@
                     buildStr += "Resources||| " + newResources + "@#|";
                 }
                 if (goalsValue != newGoals) {
-                    buildStr += "Goals||| " + newGoals + "@#|";
+                    buildStr += "21st Century Learning Goals||| " + newGoals + "@#|";
                 }
                 if (assessmentsValue != newAssessments) {
-                    buildStr += "Assessments||| " + newAssessments + "@#|";
+                    buildStr += "Assessment||| " + newAssessments + "@#|";
                 }
                 if (essentialQuestionValue != newEQ) {
-                    buildStr += "Essential Question||| " + newEQ + "@#|";
+                    buildStr += "Essential Questions||| " + newEQ + "@#|";
                 }
                 if (activities != newActivities) {
-                    buildStr += "Activities||| " + newActivities + "@#|";
+                    buildStr += "Learning Activities||| " + newActivities + "@#|";
 
                 }
                 return buildStr;
