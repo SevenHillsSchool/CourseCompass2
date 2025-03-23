@@ -273,30 +273,35 @@ def saveEdits():
         ADD THE ABILITY TO CHANGE/SAVE TITLE (Make it a rich text box)
     
     """
-
+    # edits are the changed categories from the html
     edits = request.form['editData'].split("@#|")
+    # Copy dict of the different unit categories
     categoryCopy = {value: key for key, value in categoryKey.items()}
     dataBase = connectToData()
     cursor = dataBase.cursor()
-    print(categoryCopy)
-    unitID = edits[0]
-    print(unitID)
+    unitID = edits[0].split("||| ")[1]
+    # Safe can be changed if too many rows are aaffected
+    safe = True
     for edit in edits[1:]:
         if edit:
-            print(edit.split("||| "))
+            # delimiter in edit is '||| '
             contentType, content = edit.split("||| ")
+            # ignoring the content if it is a title for now
             if contentType == "Title":
                 pass
             else:
+                # access the category according to the database
                 currCategory = categoryCopy[contentType]
-                print(currCategory)
-                statement = "UPDATE unitText SET text = %s WHERE unitID = %s AND categoryTypeID = %s"
-                cursor.execute(statement, (content, unitID, currCategory))
-                print("Rows affected:", cursor.rowcount)
+                # TODO: Make it so " in content does not interfere with the sql statement
+                statement = """UPDATE unitText SET text = "%s" WHERE unitID = %s AND categoryTypeID = %s""" % (content, unitID, currCategory)
+                cursor.execute(statement)
+                if (cursor.rowcount > 13):
+                    print("Rowcount: ", cursor.rowcount)
+                    safe = False
 
-    
-    dataBase.commit()
-    return edits
+    if safe:
+        dataBase.commit()
+    return render_template("Home.html")
 
 # Used for the edit course page to edit the courses
 @app.route("/editCourse") #, methods=['POST'])
